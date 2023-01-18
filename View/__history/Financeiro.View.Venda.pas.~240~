@@ -1,0 +1,328 @@
+unit Financeiro.View.Venda;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Financeiro.View.CadastroPadrao, Data.DB,
+  Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Buttons, Vcl.ExtCtrls, Vcl.WinXPanels, Financeiro.Model.Usuarios,
+  Vcl.DBCtrls, Vcl.Mask, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Financeiro.Controller.Interfaces, Vcl.NumberBox, MainModuleConexao;
+
+type
+  TFrmMovVenda = class(TFrmCadPadrao)
+    Panel3: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    edIdFuncionario: TDBEdit;
+    edId: TDBEdit;
+    edIdCliente: TDBEdit;
+    edNomeFuncionario: TEdit;
+    BitBtnLKPFuncionario: TBitBtn;
+    edNomeCliente: TEdit;
+    BitBtnLKPCliente: TBitBtn;
+    LKPformasdepagamento: TDBLookupComboBox;
+    edObservacoes: TDBEdit;
+    btnContinuar: TButton;
+    DSPesquisaProduto: TDataSource;
+    FDQPesquisaProduto: TFDQuery;
+    Panel4: TPanel;
+    Label7: TLabel;
+    Label8: TLabel;
+    btnAdicionarProduto: TSpeedButton;
+    edIdProduto: TEdit;
+    edNomeProduto: TEdit;
+    btnLKPProduto: TBitBtn;
+    dbgridProdutos: TDBGrid;
+    Panel5: TPanel;
+    Label10: TLabel;
+    edPrecoPrazo: TEdit;
+    Panel6: TPanel;
+    Label11: TLabel;
+    edPrecoVista: TEdit;
+    edQuantidade: TNumberBox;
+    BitBtnMenos: TBitBtn;
+    BitBtnMais: TBitBtn;
+    btnExcluir: TButton;
+    BitBtn3: TBitBtn;
+    procedure EditPesquisarChange(Sender: TObject);
+    procedure BitBtnLKPFuncionarioClick(Sender: TObject);
+    procedure BitBtnLKPClienteClick(Sender: TObject);
+    procedure btnContinuarClick(Sender: TObject);
+    procedure btnLKPProdutoClick(Sender: TObject);
+    procedure btnAdicionarProdutoClick(Sender: TObject);
+    procedure BitBtnAlterarPesquisaClick(Sender: TObject);
+    procedure BitBtnExcluirPesquisaClick(Sender: TObject);
+    procedure BitBtnFecharCadastroClick(Sender: TObject);
+    procedure BitBtnSalvarCadastroClick(Sender: TObject);
+    procedure BitBtnMaisClick(Sender: TObject);
+    procedure BitBtnMenosClick(Sender: TObject);
+    procedure edQuantidadeChangeValue(Sender: TObject);
+    procedure edIdFuncionarioChange(Sender: TObject);
+    procedure edIdClienteChange(Sender: TObject);
+    procedure BitBtnIncluirPesquisaClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure edIdChange(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+    procedure CardPanelPrincipalCardChange(Sender: TObject; PrevCard, NextCard: TCard);
+  private
+    { Private declarations }
+    comandosSQl: iComandosSQL;
+    TextoSQL: string;
+    procedure ContagemEValores;
+    procedure ValoresNoEdit;
+  public
+  end;
+
+var
+  FrmMovVenda: TFrmMovVenda;
+
+implementation
+
+uses
+  Financeiro.Model.comandosSQl, Financeiro.View.LookUpPadrao,
+  Financeiro.View.Relatorio;
+
+{$R *.dfm}
+
+procedure TFrmMovVenda.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FrmPesquisa := TFrmPesquisa.Create(self);
+  comandosSQl := TcomandoSQl.New;
+  edQuantidade.Text := '1';
+end;
+
+procedure TFrmMovVenda.BitBtnIncluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDQVenda.Insert;
+end;
+
+procedure TFrmMovVenda.BitBtnAlterarPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDQVenda.edit;
+end;
+
+procedure TFrmMovVenda.BitBtnExcluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja deletar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes
+  then DMConexao.FDQVenda.Delete;
+end;
+
+procedure TFrmMovVenda.BitBtn3Click(Sender: TObject);
+var
+  Coluna: string;
+begin
+  inherited;
+  Coluna := dbGridpesquisa.Columns[0].Field.Value;
+  FrmRelatorio.RLLabelData.caption := ' Vendas Referente a Venda nº ' + Coluna;
+  ContagemEValores;
+
+  FrmRelatorio.RLLValorVista.caption := DMConexao.FDQContagem.FieldByName('ValorVista').Value;
+  FrmRelatorio.RLLValorPrazo.caption := DMConexao.FDQContagem.FieldByName('ValorPrazo').Value;
+  FrmRelatorio.RLVendas.preview();
+end;
+
+procedure TFrmMovVenda.BitBtnLKPFuncionarioClick(Sender: TObject);
+begin
+  inherited;
+  FrmPesquisa.caption := 'Pesquisar Funcionarios';
+  comandosSQl.Comandos(FrmPesquisa.FDQLookUp,
+    ' select fun_id as "Código", fun_nome as "Nome" from funcionarios ');
+  FrmPesquisa.ShowModal;
+  edIdFuncionario.Text := FrmPesquisa.id;
+end;
+
+procedure TFrmMovVenda.BitBtnLKPClienteClick(Sender: TObject);
+begin
+  inherited;
+  FrmPesquisa.caption := 'Pesquisar Clientes';
+  comandosSQl.Comandos(FrmPesquisa.FDQLookUp,
+    ' select cliM_id as "Código", cliM_nome as "Nome" from clienteMestre ');
+  FrmPesquisa.ShowModal;
+  edIdCliente.Text := FrmPesquisa.id;
+end;
+
+procedure TFrmMovVenda.btnContinuarClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDQVenda.FieldByName('ven1_data').AsDateTime := now;
+  DMConexao.FDQVenda.post;
+  btnAdicionarProduto.Enabled := true;
+  btnContinuar.Enabled := false;
+end;
+
+procedure TFrmMovVenda.btnLKPProdutoClick(Sender: TObject);
+begin
+  inherited;
+  FrmPesquisa.caption := 'Pesquisar Produtos';
+  comandosSQl.Comandos(FrmPesquisa.FDQLookUp,
+    ' select prod_id as "Código", prod_Nome as "Nome" from produtos');
+  FrmPesquisa.ShowModal;
+  edIdProduto.Text := FrmPesquisa.id;
+  edNomeProduto.Text := FrmPesquisa.Nome;
+end;
+
+procedure TFrmMovVenda.BitBtnMaisClick(Sender: TObject);
+begin
+  inherited;
+  edQuantidade.Text := (Strtoint(edQuantidade.Text) + 1).ToString;
+end;
+
+procedure TFrmMovVenda.BitBtnMenosClick(Sender: TObject);
+begin
+  inherited;
+  edQuantidade.Text := (Strtoint(edQuantidade.Text) - 1).ToString;
+end;
+
+procedure TFrmMovVenda.btnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDQVenda_Produtos.Delete;
+end;
+
+procedure TFrmMovVenda.btnAdicionarProdutoClick(Sender: TObject);
+var
+  contagem: integer;
+  valor: double;
+begin
+  inherited;
+
+  ContagemEValores;
+
+  if DMConexao.FDQContagem.FieldByName('contagem').Value = null then contagem := 0
+  else contagem := DMConexao.FDQContagem.FieldByName('contagem').Value;
+
+  comandosSQl.Comandos(FDQPesquisaProduto,
+    ' select * from produtos where prod_id = ' + edIdProduto.Text);
+
+  DMConexao.FDQVenda_Produtos.Insert;
+  DMConexao.FDQVenda_Produtos.FieldByName('ven2_NrItem').AsInteger := (contagem + 1);
+  DMConexao.FDQVenda_Produtos.FieldByName('ven2_ProdutoId').AsInteger := Strtoint(edIdProduto.Text);
+  DMConexao.FDQVenda_Produtos.FieldByName('ven2_NomeProduto').AsString := edNomeProduto.Text;
+  DMConexao.FDQVenda_Produtos.FieldByName('ven2_Qtdeproduto').AsInteger := Strtoint(edQuantidade.Text);
+  valor := FDQPesquisaProduto.FieldByName('prod_ValorUni').Value * Strtoint(edQuantidade.Text);
+  DMConexao.FDQVenda_Produtos.FieldByName('ven2_ValorVista').Asfloat := (valor * 0.90);
+  DMConexao.FDQVenda_Produtos.FieldByName('ven2_ValorPrazo').Asfloat := valor;
+  
+  edIdProduto.Text := '';
+  edNomeProduto.Text := '';
+  edQuantidade.Text := '0';
+  
+  DMConexao.FDQVenda_Produtos.Post;
+  DMConexao.FDQContagem.Refresh;
+  ValoresNoEdit;
+end;
+
+procedure TFrmMovVenda.BitBtnFecharCadastroClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDQVenda.Cancel;
+end;
+
+procedure TFrmMovVenda.BitBtnSalvarCadastroClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja salvar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin   
+    BitBtnFecharCadastroClick(self);
+  end;
+end;
+
+procedure TFrmMovVenda.CardPanelPrincipalCardChange(Sender: TObject; PrevCard, NextCard: TCard);
+begin
+  inherited;
+  btnContinuar.Enabled := true;
+  btnAdicionarProduto.Enabled := false;
+  ContagemEValores;
+  ValoresNoEdit;
+end;
+
+procedure TFrmMovVenda.ContagemEValores;
+begin
+  TextoSQL := ' select max(ven2_nrItem) as "contagem", ' +
+    ' sum(ven2_ValorVista) as "ValorVista", ' +
+    ' sum(ven2_valorPrazo) as "ValorPrazo" ' +
+    ' from venda2 where ven2_MestreId = :pMestre';
+  TcomandoSQl.New.Comandos(DMConexao.FDQContagem, TextoSQL, 'pMestre',
+    edId.Text);
+end;
+
+procedure TFrmMovVenda.ValoresNoEdit;
+begin
+  if DMConexao.FDQContagem.FieldByName('valorVista').Value <> null then
+  begin
+    edPrecoVista.Text := DMConexao.FDQContagem.FieldByName('ValorVista').Value;
+    edPrecoPrazo.Text := DMConexao.FDQContagem.FieldByName('ValorPrazo').Value;
+  end
+  else  
+  begin
+    edPrecoVista.Text := '0,00';
+    edPrecoPrazo.Text := '0,00'
+  end;
+end;
+
+procedure TFrmMovVenda.edIdChange(Sender: TObject);
+begin
+  inherited;
+  ContagemEValores;
+  ValoresNoEdit;
+end;
+
+procedure TFrmMovVenda.edIdClienteChange(Sender: TObject);
+begin
+  inherited;
+  if edIdCliente.Text <> '' then
+  begin
+    TcomandoSQl.New.Comandos(DMConexao.FDQClientes_pesquisa,
+      'select * from clienteMestre where cliM_id = ' + edIdCliente.Text);
+    edNomeCliente.Text := DMConexao.FDQClientes_pesquisa.FieldByName
+      ('cliM_nome').Value;
+  end
+  else
+    edNomeCliente.Text := '';
+end;
+
+procedure TFrmMovVenda.edIdFuncionarioChange(Sender: TObject);
+begin
+  inherited;
+  if edIdFuncionario.Text <> '' then
+  begin
+    TcomandoSQl.New.Comandos(DMConexao.FDQFuncionarios_pesquisa,
+      'select * from funcionarios where FUN_ID = ' + edIdFuncionario.Text);
+    edNomeFuncionario.Text := DMConexao.FDQFuncionarios_pesquisa.FieldByName
+      ('fun_nome').Value;
+  end
+  else
+    edNomeFuncionario.Text := '';
+end;
+
+procedure TFrmMovVenda.EditPesquisarChange(Sender: TObject);
+var
+  TextoSQL, edtext: string;
+begin
+  inherited;
+  if EditPesquisar.Text <> '' then
+  DMConexao.FDQVenda.Locate('ven1_id', EditPesquisar.Text, [loPartialkey]);
+end;
+
+procedure TFrmMovVenda.edQuantidadeChangeValue(Sender: TObject);
+begin
+  inherited;
+  if Strtoint(edQuantidade.Text) < 1 then
+    edQuantidade.Text := '1';
+end;
+
+end.

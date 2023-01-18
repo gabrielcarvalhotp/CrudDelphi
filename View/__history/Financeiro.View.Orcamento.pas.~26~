@@ -1,0 +1,65 @@
+unit Financeiro.View.Orcamento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Financeiro.View.CadastroPadrao, Data.DB, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Buttons, Vcl.ExtCtrls, Vcl.WinXPanels, Financeiro.Model.Usuarios, Vcl.DBCtrls, Vcl.Mask;
+
+type
+  TFrmOrcamento = class(TFrmCadPadrao)
+    DBNavigator1: TDBNavigator;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    Label3: TLabel;
+    DBEdit3: TDBEdit;
+    DBGrid1: TDBGrid;
+    procedure BitBtnIncluirPesquisaClick(Sender: TObject);
+    procedure BitBtnSalvarCadastroClick(Sender: TObject);
+    procedure BitBtnAlterarPesquisaClick(Sender: TObject);
+    procedure BitBtnExcluirPesquisaClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmOrcamento: TFrmOrcamento;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmOrcamento.BitBtnAlterarPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMFuncionarios.FDTMestre.edit;
+end;
+
+procedure TFrmOrcamento.BitBtnExcluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja deletar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes
+  then
+    DMFuncionarios.FDTMestre.Delete;
+end;
+procedure TFrmOrcamento.BitBtnIncluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMFuncionarios.FDTMestre.insert;
+end;
+
+procedure TFrmOrcamento.BitBtnSalvarCadastroClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja salvar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    DMFuncionarios.FDTMestre.Post;
+    BitBtnFecharCadastroClick(self);
+  end;
+end;
+end.

@@ -1,0 +1,44 @@
+unit Financeiro.View.AcaoVEnda;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TFrmAcaoVenda = class(TForm)
+    BtnFazerVenda: TButton;
+    btnListaVendas: TButton;
+    btnSair: TButton;
+    procedure btnSairClick(Sender: TObject);
+    procedure BtnFazerVendaClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmAcaoVenda: TFrmAcaoVenda;
+
+implementation
+
+uses
+  Financeiro.View.RealizarVenda, Financeiro.Model.Usuarios;
+
+{$R *.dfm}
+
+procedure TFrmAcaoVenda.BtnFazerVendaClick(Sender: TObject);
+begin   
+  FrmRalizarVenda := TFrmRalizarVendaERRO.Create(self);
+  FrmRalizarVenda.show;
+end;
+
+procedure TFrmAcaoVenda.btnSairClick(Sender: TObject);
+begin
+  self.Close;
+end;
+
+end.

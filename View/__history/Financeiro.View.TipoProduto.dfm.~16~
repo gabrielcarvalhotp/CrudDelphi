@@ -1,0 +1,68 @@
+inherited FrmCadTipoProduto: TFrmCadTipoProduto
+  Caption = 'FrmCadTipoProduto'
+  PixelsPerInch = 96
+  TextHeight = 19
+  inherited CardPanelPrincipal: TCardPanel
+    inherited CardCadastro: TCard
+      object Label1: TLabel [0]
+        Left = 17
+        Top = 88
+        Width = 42
+        Height = 19
+        Caption = 'Nome'
+      end
+      inherited Panel1: TPanel
+        inherited BitBtnSalvarCadastro: TBitBtn
+          OnClick = BitBtnSalvarCadastroClick
+        end
+      end
+      inherited Panel2: TPanel
+        inherited Label6: TLabel
+          Width = 260
+          Caption = 'Cadastrar tipos de produtos'
+          ExplicitWidth = 260
+        end
+      end
+      object DBEdit1: TDBEdit
+        Left = 80
+        Top = 85
+        Width = 150
+        Height = 27
+        DataField = 'tip_Nome'
+        DataSource = DMUsuarios.DSTipo
+        TabOrder = 2
+      end
+    end
+    inherited CardPesquisa: TCard
+      inherited PanelFooter: TPanel
+        inherited BitBtnExcluirPesquisa: TBitBtn
+          OnClick = BitBtnExcluirPesquisaClick
+        end
+      end
+      inherited PanelGrid: TPanel
+        inherited DBGridPesquisa: TDBGrid
+          DataSource = DMUsuarios.DSTipo
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'tip_id'
+              Title.Caption = 'C'#243'digo'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'tip_Nome'
+              Title.Caption = 'Nome'
+              Width = 990
+              Visible = True
+            end>
+        end
+      end
+      inherited PanelPesquisa: TPanel
+        inherited EditPesquisar: TEdit
+          OnChange = EditPesquisarChange
+        end
+      end
+    end
+  end
+end

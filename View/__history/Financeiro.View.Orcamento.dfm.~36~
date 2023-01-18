@@ -1,0 +1,218 @@
+inherited FrmOrcamento: TFrmOrcamento
+  Caption = 'FrmOrcamento'
+  ClientHeight = 671
+  ClientWidth = 1094
+  ExplicitWidth = 1100
+  ExplicitHeight = 700
+  PixelsPerInch = 96
+  TextHeight = 19
+  inherited CardPanelPrincipal: TCardPanel
+    Width = 1094
+    Height = 671
+    ActiveCard = CardPesquisa
+    ExplicitWidth = 1094
+    ExplicitHeight = 671
+    inherited CardCadastro: TCard
+      Width = 1092
+      Height = 669
+      ExplicitWidth = 1092
+      ExplicitHeight = 669
+      object Label1: TLabel [0]
+        Left = 9
+        Top = 72
+        Width = 42
+        Height = 19
+        Caption = 'Nome'
+      end
+      object Label2: TLabel [1]
+        Left = 8
+        Top = 130
+        Width = 32
+        Height = 19
+        Caption = 'Data'
+      end
+      object Label3: TLabel [2]
+        Left = 9
+        Top = 102
+        Width = 27
+        Height = 19
+        Caption = 'CPF'
+      end
+      inherited Panel1: TPanel
+        Top = 563
+        Width = 1092
+        ExplicitTop = 563
+        ExplicitWidth = 1092
+        inherited BitBtnFecharCadastro: TBitBtn
+          Left = 888
+          ExplicitLeft = 888
+        end
+        inherited BitBtnSalvarCadastro: TBitBtn
+          Left = 991
+          OnClick = BitBtnSalvarCadastroClick
+          ExplicitLeft = 991
+        end
+      end
+      inherited Panel2: TPanel
+        Width = 1092
+        Height = 57
+        ExplicitWidth = 1092
+        ExplicitHeight = 57
+        inherited Label6: TLabel
+          Top = 18
+          Width = 188
+          Caption = 'Tela de Or'#231'amentos'
+          ExplicitTop = 18
+          ExplicitWidth = 188
+        end
+      end
+      object DBEdit1: TDBEdit
+        Left = 68
+        Top = 69
+        Width = 150
+        Height = 27
+        DataField = 'cliM_Nome'
+        DataSource = DMFuncionarios.DSMestre
+        TabOrder = 2
+      end
+      object DBEdit2: TDBEdit
+        Left = 68
+        Top = 127
+        Width = 150
+        Height = 27
+        DataField = 'cliM_DataNasc'
+        DataSource = DMFuncionarios.DSMestre
+        TabOrder = 3
+      end
+      object DBEdit3: TDBEdit
+        Left = 68
+        Top = 99
+        Width = 150
+        Height = 27
+        DataField = 'cliM_CPF'
+        DataSource = DMFuncionarios.DSMestre
+        TabOrder = 4
+      end
+    end
+    inherited CardPesquisa: TCard
+      Width = 1092
+      Height = 669
+      ExplicitWidth = 1092
+      ExplicitHeight = 669
+      inherited PanelFooter: TPanel
+        Top = 563
+        Width = 1092
+        ExplicitTop = 563
+        ExplicitWidth = 1092
+        inherited BitBtnFecharPesquisa: TBitBtn
+          Left = 991
+          ExplicitLeft = 991
+        end
+      end
+      inherited PanelGrid: TPanel
+        Width = 1092
+        Height = 458
+        ExplicitWidth = 1092
+        ExplicitHeight = 458
+        inherited DBGridPesquisa: TDBGrid
+          Left = 4
+          Top = 2
+          Height = 192
+          Align = alNone
+          DataSource = DMFuncionarios.DSMestre
+          ReadOnly = False
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'cliM_Id'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'cliM_Nome'
+              Width = 129
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'cliM_CPF'
+              Width = 126
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'cliM_DataNasc'
+              Width = 174
+              Visible = True
+            end>
+        end
+        object DBNavigator1: TDBNavigator
+          Left = 368
+          Top = 209
+          Width = 240
+          Height = 25
+          DataSource = DMFuncionarios.DSMestre
+          TabOrder = 1
+        end
+        object DBGrid1: TDBGrid
+          Left = 1
+          Top = 240
+          Width = 1090
+          Height = 217
+          Align = alBottom
+          DataSource = DMFuncionarios.DSDetalhe
+          TabOrder = 2
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -16
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'cliD_id'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'cliD_IdMestre'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'cliD_NomeMae'
+              Width = 200
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'cliD_NomePai'
+              Width = 233
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'cliD_EstadoCivil'
+              Width = 128
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'cliD_NomeConj'
+              Width = 100
+              Visible = True
+            end>
+        end
+      end
+      inherited PanelPesquisa: TPanel
+        Width = 1092
+        ExplicitWidth = 1092
+        inherited BitBtnPesquisar: TBitBtn
+          Left = 991
+          ExplicitLeft = 991
+        end
+      end
+    end
+  end
+end

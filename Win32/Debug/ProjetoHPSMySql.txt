@@ -1,0 +1,3 @@
+Database=projetohps
+User_Name=root
+DriverID=MySQL

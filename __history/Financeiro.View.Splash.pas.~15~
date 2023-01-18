@@ -1,0 +1,61 @@
+unit Financeiro.View.Splash;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls;
+
+type
+  TFormSplash = class(TForm)
+    PanelSplash: TPanel;
+    Image2: TImage;
+    Label1: TLabel;
+    ProgressBar1: TProgressBar;
+    LabelStatus: TLabel;
+    Timer1: TTimer;
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure MostrarSplash;
+  end;
+
+var
+  FormSplash: TFormSplash;
+
+implementation
+
+{$R *.dfm}
+{ TFormSplash }
+
+{ TFormSplash }
+
+procedure TFormSplash.MostrarSplash;
+begin
+  FormSplash := TFormSplash.Create(nil);
+  try
+    FormSplash.ShowModal;
+  finally
+    FreeAndNil(FormSplash)
+  end;
+
+end;
+
+procedure TFormSplash.Timer1Timer(Sender: TObject);
+begin
+  while ProgressBar1.Position <= 100 do
+    ProgressBar1.StepIt;
+  case ProgressBar1.Position of
+    20: LabelStatus.Caption := 'Carregando Dependências...';
+    40: LabelStatus.Caption := 'Conectando ao Banco de Dados...';
+    60: LabelStatus.Caption := 'Carregando Usuário...';
+    80: LabelStatus.Caption := 'Iniciando o Sistema...';
+  end;
+end;
+  
+
+end.

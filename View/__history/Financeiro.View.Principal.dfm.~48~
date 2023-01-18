@@ -1,0 +1,65 @@
+object FrmPrincipal: TFrmPrincipal
+  Left = 0
+  Top = 0
+  Align = alClient
+  Caption = 'Financeiro'
+  ClientHeight = 797
+  ClientWidth = 1112
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenuPrincipal
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 19
+  object MainMenuPrincipal: TMainMenu
+    Left = 1056
+    Top = 16
+    object MenuCadastros: TMenuItem
+      Caption = 'Cadastros'
+      object Funcionarios1: TMenuItem
+        Caption = 'Funcionarios'
+        OnClick = Funcionarios1Click
+      end
+      object TipoProduto1: TMenuItem
+        Caption = 'Tipo de produto'
+        OnClick = TipoProduto1Click
+      end
+      object Produtos1: TMenuItem
+        Caption = 'Produtos'
+        OnClick = Produtos1Click
+      end
+      object Clientes1: TMenuItem
+        Caption = 'Clientes'
+        OnClick = Clientes1Click
+      end
+      object FormasDePagamento1: TMenuItem
+        Caption = 'Formas de Pagamento'
+        OnClick = FormasDePagamento1Click
+      end
+    end
+    object Movimentos1: TMenuItem
+      Caption = 'Movimentos'
+      object Vendas1: TMenuItem
+        Caption = 'Vendas'
+        OnClick = Vendas1Click
+      end
+      object ConsultarPreos1: TMenuItem
+        Caption = 'Consultar Pre'#231'os'
+        OnClick = ConsultarPreos1Click
+      end
+    end
+    object MenuAjuda: TMenuItem
+      Caption = 'Configura'#231#245'es'
+      object Sair1: TMenuItem
+        Caption = 'Sair'
+        OnClick = Sair1Click
+      end
+    end
+  end
+end

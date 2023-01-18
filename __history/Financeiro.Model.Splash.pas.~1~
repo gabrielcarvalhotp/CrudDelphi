@@ -1,0 +1,43 @@
+unit Financeiro.Model.Splash;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, Vcl.Forms;
+type
+
+TSplash = class(TInterfacedObject, iSplash)
+  constructor Create;
+  destructor Destroy; override;
+  class function New : iSplash;
+  procedure MostrarSplash(Form : TForm);
+end;
+
+implementation
+
+{ TSplash }
+
+constructor TSplash.Create;
+begin
+
+end;
+
+destructor TSplash.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TSplash.New: iSplash;
+begin
+   Result := Self.create;
+end;
+
+
+procedure TSplash.MostrarSplash(Form: TForm);
+begin
+   Form := Form.Create(nil);
+   Form.ShowModal;
+end;
+
+end.

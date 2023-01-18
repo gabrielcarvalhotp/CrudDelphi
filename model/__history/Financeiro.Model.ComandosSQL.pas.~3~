@@ -1,0 +1,44 @@
+unit Financeiro.Model.ComandosSQL;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, FireDAC.Comp.Client;
+
+type
+  TComandoSQL = class(TInterfacedObject, iComandosSQL)
+    procedure Comandos(fdquery: TFDQuery; SQL: string);
+    constructor Create;
+    destructor Destroy; override;
+    class function New: iComandosSQL;
+  end;
+
+implementation
+
+{ TComandoSQL }
+
+procedure TComandoSQL.Comandos(fdquery: TFDQuery; SQL: string);
+begin
+  fdquery.Close;
+  fdquery.SQL.Clear;
+  fdquery.SQL.add(SQL);
+  fdquery.Open;
+end;
+
+constructor TComandoSQL.Create;
+begin
+  //
+end;
+
+destructor TComandoSQL.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TComandoSQL.New: iComandosSQL;
+begin
+  result := Self.Create;
+end;
+
+end.

@@ -1,0 +1,47 @@
+unit Financeiro.View.Relatorio;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, RLReport, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, mainmoduleconexao, Financeiro.Model.Usuarios;
+
+type
+  TFrmRelatorio = class(TForm)
+    RLBHeader: TRLBand;
+    RLBTitle: TRLBand;
+    RLSystemInfo1: TRLSystemInfo;
+    RLSystemInfo2: TRLSystemInfo;
+    RLLabel1: TRLLabel;
+    RLLabel2: TRLLabel;
+    RLLabelData: TRLLabel;
+    RLBand1: TRLBand;
+    RLLabel3: TRLLabel;
+    RLLabel5: TRLLabel;
+    RLLabel6: TRLLabel;
+    RLLabel7: TRLLabel;
+    RLLabel8: TRLLabel;
+    RLBand4: TRLBand;
+    RLDBText1: TRLDBText;
+    RLDBText2: TRLDBText;
+    RLDBText3: TRLDBText;
+    RLDBText4: TRLDBText;
+    RLDBText5: TRLDBText;
+    RLDBText6: TRLDBText;
+    RLVendas: TRLReport;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmRelatorio: TFrmRelatorio;
+
+implementation
+
+{$R *.dfm}
+
+end.

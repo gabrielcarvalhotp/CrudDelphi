@@ -1,0 +1,73 @@
+unit Financeiro.View.LookUpPadrao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, DataModuleConexao;
+
+type
+  TFrmPesquisa = class(TForm)
+    edPesquisa: TEdit;
+    Label1: TLabel;
+    DBGridPesquisa: TDBGrid;
+    DataSource1: TDataSource;
+    FDQuery1: TFDQuery;
+    procedure DBGridPesquisaDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure edPesquisaChange(Sender: TObject);
+    procedure DBGridPesquisaCellClick(Column: TColumn);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    id : integer;
+    nome : string;
+  end;
+
+var
+  FrmPesquisa: TFrmPesquisa;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmPesquisa.DBGridPesquisaCellClick(Column: TColumn);
+begin
+  id := DBGridPesquisa.Columns[0].Field.Value;
+  nome := DBGridPesquisa.Columns[1].Field.Value;
+  self.Close;
+end;
+
+procedure TFrmPesquisa.DBGridPesquisaDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if odd(DBGridPesquisa.DataSource.DataSet.RecNo) then
+  begin
+    // DBGridPesquisa.Canvas.Font.Color:= clWhite;
+    DBGridPesquisa.Canvas.Brush.Color := $00D2C8BE;
+    DBGridPesquisa.DefaultDrawDataCell(Rect, Column.Field, State)
+  end;
+end;
+
+procedure TFrmPesquisa.edPesquisaChange(Sender: TObject);
+var
+  nomeDaColuna: string;
+begin
+  nomeDaColuna := DBGridPesquisa.Columns[0].FieldName;
+  if edPesquisa.Text <> '' then
+    FDQuery1.Locate(nomeDaColuna, edPesquisa.Text, [loPartialKey]);
+end;
+
+function TFrmPesquisa.id: Integer;
+begin
+  result := Fid;
+end;
+
+end.

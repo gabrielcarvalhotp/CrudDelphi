@@ -1,0 +1,66 @@
+unit Financeiro.Model.Validacao;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, vcl.Dialogs;
+
+type
+  TAlterarCadastro = class(TInterfacedObject, iValidacao)
+    constructor Create;
+    Destructor Destroy; override;
+    class Function New: iValidacao;
+
+  public
+    function ValidarParametros(Nome, CPF: string): iValidacao;
+    function ValidarNome(Nome: string): iValidacao;
+    function ValidarCPF(CPF : string) : iValidacao;
+
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TAlterarCadastro }
+
+constructor TAlterarCadastro.Create;
+begin
+  //
+end;
+
+destructor TAlterarCadastro.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TAlterarCadastro.New: iValidacao;
+begin
+  result := Self.Create;
+end;
+
+
+function TAlterarCadastro.ValidarCPF(CPF: string): iValidacao;
+begin
+//
+end;
+
+function TAlterarCadastro.ValidarNome(Nome: string): iValidacao;
+begin
+  if Trim(Nome) = '' then
+  begin
+    ShowMessage('O Campo Nome não pode ser vazio!');
+    Abort;
+  end;
+end;
+
+
+
+function TAlterarCadastro.ValidarParametros(Nome, CPF: string): iValidacao;
+begin
+  //
+end;
+
+end.

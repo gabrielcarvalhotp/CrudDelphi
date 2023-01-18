@@ -1,0 +1,32 @@
+unit Financeiro.View.Splash;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, Financeiro.Model.Splash;
+
+type
+  TFormSplash = class(TSplash)
+    PanelSplash: TPanel;
+    Image2: TImage;
+    Label1: TLabel;
+    ProgressBar1: TProgressBar;
+    Label2: TLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormSplash: TFormSplash;
+
+implementation
+
+{$R *.dfm}
+
+{ TFormSplash }
+
+end.

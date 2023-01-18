@@ -1,0 +1,34 @@
+﻿program Sistemafinanceiro;
+
+uses
+  Vcl.Forms,
+  Financeiro.Controller.Interfaces in 'interfaces\Financeiro.Controller.Interfaces.pas',
+  Financeiro.Model.ChamaCard in 'model\Financeiro.Model.ChamaCard.pas',
+  Financeiro.Model.ConexaoBancoDeDados in 'model\Financeiro.Model.ConexaoBancoDeDados.pas',
+  Financeiro.View.CadastroPadrao in 'View\Financeiro.View.CadastroPadrao.pas' {FrmCadPadrao},
+  Financeiro.View.Principal in 'View\Financeiro.View.Principal.pas' {FrmPrincipal},
+  Financeiro.View.Splash in 'View\Financeiro.View.Splash.pas' {FrmSplash},
+  Financeiro.View.Funcionario in 'View\Financeiro.View.Funcionario.pas' {FrmCadFuncionario},
+  DataModuleConexao in 'model\DataModuleConexao.pas' {DataModule1: TDataModule},
+  Financeiro.Model.Validacao in 'model\Financeiro.Model.Validacao.pas',
+  Financeiro.Model.Usuarios in 'model\Financeiro.Model.Usuarios.pas' {DMFuncionarios},
+  Financeiro.View.Produtos in 'View\Financeiro.View.Produtos.pas' {FrmCadProduto},
+  Financeiro.Model.ComandosSQL in 'model\Financeiro.Model.ComandosSQL.pas',
+  Financeiro.View.MestreDetalhe in 'View\Financeiro.View.MestreDetalhe.pas' {FrmMestreDetalhe},
+  Financeiro.View.TipoProduto in 'View\Financeiro.View.TipoProduto.pas' {FrmCadTipoProduto},
+  Unit2 in 'Unit2.pas' {FrmCadPadrao2};
+
+begin
+  ReportMemoryLeaksOnShutdown := true;
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+  Application.CreateForm(TFrmCadPadrao, FrmCadPadrao);
+  Application.CreateForm(TDMFuncionarios, DMFuncionarios);
+  Application.CreateForm(TFrmMestreDetalhe, FrmMestreDetalhe);
+  Application.CreateForm(TFrmCadTipoProduto, FrmCadTipoProduto);
+  Application.CreateForm(TFrmCadPadrao2, FrmCadPadrao2);
+  Application.Run;
+
+end.

@@ -1,0 +1,17 @@
+unit Financeiro.Controller.Interfaces;
+
+interface
+
+uses
+  Vcl.WinXPanels;
+
+type
+ iBotaoIncluir = interface
+   ['{7670AD23-6D1D-4053-BD77-323CCC054AA7}']
+   procedure ChamarCard(Value : TCard);
+ end;
+
+implementation
+
+end.
+

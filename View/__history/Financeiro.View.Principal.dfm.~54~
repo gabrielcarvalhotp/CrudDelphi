@@ -1,0 +1,114 @@
+object FrmPrincipal: TFrmPrincipal
+  Left = 0
+  Top = 0
+  Align = alClient
+  BorderStyle = bsSingle
+  Caption = 'Financeiro'
+  ClientHeight = 802
+  ClientWidth = 1122
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenuPrincipal
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 19
+  object Panel1: TPanel
+    Left = 938
+    Top = 1
+    Width = 185
+    Height = 96
+    BorderStyle = bsSingle
+    TabOrder = 0
+    object lblTimeOfDay: TLabel
+      Left = 0
+      Top = 0
+      Width = 83
+      Height = 19
+      Caption = 'Hora do dia'
+    end
+    object lblTempNow: TLabel
+      Left = 0
+      Top = 17
+      Width = 133
+      Height = 19
+      Caption = 'Temperatura Atual'
+    end
+    object lblTempMax: TLabel
+      Left = 0
+      Top = 32
+      Width = 54
+      Height = 19
+      Caption = 'M'#225'xima'
+    end
+    object lblTempMin: TLabel
+      Left = 0
+      Top = 49
+      Width = 51
+      Height = 19
+      Caption = 'Minima'
+    end
+    object lblTempDesc: TLabel
+      Left = 0
+      Top = 67
+      Width = 67
+      Height = 19
+      Caption = 'Descri'#231#227'o'
+    end
+  end
+  object MainMenuPrincipal: TMainMenu
+    Left = 688
+    Top = 32
+    object MenuCadastros: TMenuItem
+      Caption = 'Cadastros'
+      object Funcionarios1: TMenuItem
+        Caption = 'Funcionarios'
+        OnClick = Funcionarios1Click
+      end
+      object TipoProduto1: TMenuItem
+        Caption = 'Tipo de produto'
+        OnClick = TipoProduto1Click
+      end
+      object Produtos1: TMenuItem
+        Caption = 'Produtos'
+        OnClick = Produtos1Click
+      end
+      object Clientes1: TMenuItem
+        Caption = 'Clientes'
+        OnClick = Clientes1Click
+      end
+      object FormasDePagamento1: TMenuItem
+        Caption = 'Formas de Pagamento'
+        OnClick = FormasDePagamento1Click
+      end
+    end
+    object Movimentos1: TMenuItem
+      Caption = 'Movimentos'
+      object Vendas1: TMenuItem
+        Caption = 'Vendas'
+        OnClick = Vendas1Click
+      end
+      object ConsultarPreos1: TMenuItem
+        Caption = 'Consultar Pre'#231'os'
+        OnClick = ConsultarPreos1Click
+      end
+    end
+    object MenuAjuda: TMenuItem
+      Caption = 'Configura'#231#245'es'
+      object Sair1: TMenuItem
+        Caption = 'Sair'
+        OnClick = Sair1Click
+      end
+    end
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 1056
+    Top = 128
+  end
+end

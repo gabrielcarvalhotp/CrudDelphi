@@ -1,0 +1,147 @@
+inherited FrmCadProduto: TFrmCadProduto
+  Caption = 'FrmCadProduto'
+  PixelsPerInch = 96
+  TextHeight = 19
+  inherited CardPanelPrincipal: TCardPanel
+    ActiveCard = CardCadastro
+    inherited CardCadastro: TCard
+      object Label1: TLabel [0]
+        Left = 17
+        Top = 88
+        Width = 42
+        Height = 19
+        Caption = 'Nome'
+      end
+      object Label2: TLabel [1]
+        Left = 17
+        Top = 121
+        Width = 81
+        Height = 19
+        Caption = 'Quantidade'
+      end
+      object Label3: TLabel [2]
+        Left = 17
+        Top = 154
+        Width = 37
+        Height = 19
+        Caption = 'Valor'
+      end
+      object Label4: TLabel [3]
+        Left = 17
+        Top = 188
+        Width = 93
+        Height = 19
+        Caption = 'Tipo Produto'
+      end
+      inherited Panel1: TPanel
+        inherited BitBtnSalvarCadastro: TBitBtn
+          OnClick = BitBtnSalvarCadastroClick
+        end
+      end
+      inherited Panel2: TPanel
+        Height = 57
+        TabOrder = 5
+        ExplicitHeight = 57
+        inherited Label6: TLabel
+          Top = 14
+          Width = 201
+          Caption = 'Cadastro de Produtos'
+          ExplicitTop = 14
+          ExplicitWidth = 201
+        end
+      end
+      object DBEdit1: TDBEdit
+        Left = 116
+        Top = 85
+        Width = 150
+        Height = 27
+        DataField = 'prod_Nome'
+        DataSource = DMFuncionarios.DSProduto
+        TabOrder = 1
+      end
+      object DBEdit2: TDBEdit
+        Left = 116
+        Top = 118
+        Width = 45
+        Height = 27
+        DataField = 'prod_QtdEstoque'
+        DataSource = DMFuncionarios.DSProduto
+        TabOrder = 2
+      end
+      object DBEdit3: TDBEdit
+        Left = 116
+        Top = 151
+        Width = 85
+        Height = 27
+        DataField = 'prod_ValorUni'
+        DataSource = DMFuncionarios.DSProduto
+        TabOrder = 3
+      end
+      object DBLookupComboBox1: TDBLookupComboBox
+        Left = 116
+        Top = 184
+        Width = 150
+        Height = 27
+        DataField = 'prod_IdTipoProduto'
+        DataSource = DMFuncionarios.DSProduto
+        KeyField = 'tip_id'
+        ListField = 'tip_Nome'
+        ListSource = DMFuncionarios.DSTipo
+        TabOrder = 4
+      end
+    end
+    inherited CardPesquisa: TCard
+      inherited PanelFooter: TPanel
+        inherited BitBtnExcluirPesquisa: TBitBtn
+          OnClick = BitBtnExcluirPesquisaClick
+        end
+      end
+      inherited PanelGrid: TPanel
+        inherited DBGridPesquisa: TDBGrid
+          DataSource = DMFuncionarios.DSProduto
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'prod_id'
+              Title.Alignment = taCenter
+              Title.Caption = 'C'#243'digo'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'prod_Nome'
+              Title.Caption = 'Nome do Produto'
+              Width = 293
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'prod_qtdEstoque'
+              Title.Caption = 'Quantidade'
+              Width = 182
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'prod_ValorUni'
+              Title.Caption = 'Valor'
+              Width = 69
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'tip_nome'
+              Title.Caption = 'Tipo do produto'
+              Width = 434
+              Visible = True
+            end>
+        end
+      end
+      inherited PanelPesquisa: TPanel
+        inherited EditPesquisar: TEdit
+          OnChange = EditPesquisarChange
+        end
+      end
+    end
+  end
+end

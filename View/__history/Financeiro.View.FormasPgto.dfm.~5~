@@ -1,0 +1,29 @@
+inherited FrmCadFormasPgto: TFrmCadFormasPgto
+  Caption = 'FrmCadFormasPgto'
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 19
+  inherited CardPanelPrincipal: TCardPanel
+    ActiveCard = CardPesquisa
+    inherited CardPesquisa: TCard
+      inherited PanelGrid: TPanel
+        inherited DBGridPesquisa: TDBGrid
+          DataSource = DMConexao.DSTipoProduto
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'TIP_ID'
+              Width = 100
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TIP_NOME'
+              Width = 983
+              Visible = True
+            end>
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,46 @@
+unit Financeiro.View.FormasPgto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Financeiro.View.CadastroPadrao, Data.DB, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Buttons, Vcl.ExtCtrls, Vcl.WinXPanels, Financeiro.Model.Usuarios;
+
+type
+  TFrmCadFormasPgto = class(TFrmCadPadrao)
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure EditPesquisarChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCadFormasPgto: TFrmCadFormasPgto;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmCadFormasPgto.EditPesquisarChange(Sender: TObject);
+begin
+  inherited;
+  //
+end;
+
+procedure TFrmCadFormasPgto.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  DMConexao.fdqtipoProduto.close;
+end;
+
+procedure TFrmCadFormasPgto.FormCreate(Sender: TObject);
+begin
+  inherited;
+  if not DMConexao.fdqtipoProduto.Active then DMConexao.fdqtipoProduto.open;
+end;
+
+end.

@@ -1,0 +1,44 @@
+unit Financeiro.Model.BotaoCancelar;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, Vcl.WinXPanels;
+
+type
+  TBotaoCancelar = class(TInterfacedObject, iBotaoChamar)
+    constructor Create;
+    destructor Destroy; override;
+    class function New: iBotaoChamar;
+    procedure ChamarCard(Value : TCard);
+
+  end;
+
+implementation
+
+uses
+  Financeiro.View.CadastroPadrao;
+
+  
+procedure TBotaoCancelar.ChamarCard(Value : TCard); 
+begin
+  FormCadastroPadrao.CardPanelPrincipal.ActiveCard := Value
+end;
+
+constructor TBotaoCancelar.Create;
+begin
+
+end;
+
+destructor TBotaoCancelar.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TBotaoCancelar.New: iBotaoChamar;
+begin
+  Result := Self.Create;
+end;
+
+end.

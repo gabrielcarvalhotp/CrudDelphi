@@ -1,0 +1,97 @@
+unit Financeiro.View.TipoProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Financeiro.View.CadastroPadrao, Data.DB,
+  Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Buttons, Vcl.ExtCtrls, Vcl.WinXPanels, Financeiro.model.usuarios,
+  Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TFrmCadTipoProduto = class(TFrmCadPadrao)
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    procedure BitBtnIncluirPesquisaClick(Sender: TObject);
+    procedure BitBtnSalvarCadastroClick(Sender: TObject);
+    procedure BitBtnAlterarPesquisaClick(Sender: TObject);
+    procedure BitBtnExcluirPesquisaClick(Sender: TObject);
+    procedure EditPesquisarChange(Sender: TObject);
+    procedure BitBtnFecharCadastroClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCadTipoProduto: TFrmCadTipoProduto;
+
+implementation
+
+uses
+  Financeiro.model.ComandosSQL, System.UITypes;
+
+{$R *.dfm}
+
+procedure TFrmCadTipoProduto.BitBtnAlterarPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDQTipoProduto.edit;
+end;
+
+procedure TFrmCadTipoProduto.BitBtnExcluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja deletar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes
+  then
+    DMConexao.FDQTipoProduto.Delete;
+end;
+
+procedure TFrmCadTipoProduto.BitBtnFecharCadastroClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDQTipoProduto.Cancel;
+end;
+
+procedure TFrmCadTipoProduto.BitBtnIncluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDQTipoProduto.insert;
+end;
+
+procedure TFrmCadTipoProduto.BitBtnSalvarCadastroClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja salvar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    DMConexao.FDQTipoProduto.Post;
+    BitBtnFecharCadastroClick(self);
+  end;
+
+end;
+
+procedure TFrmCadTipoProduto.EditPesquisarChange(Sender: TObject);
+var
+  TextoSQL, edtext: string;
+begin
+  inherited;
+  edtext := '%' + EditPesquisar.Text + '%';
+  TextoSQL :=
+    'Select * from tipoProduto where tip_Nome like :pNome order by tip_id';
+  TComandoSQL.New.Comandos(DMConexao.FDQTipoProduto, TextoSQL, 'pNome', edtext);
+end;
+
+procedure TFrmCadTipoProduto.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  DMConexao.FDQTipoProduto.Close;
+end;
+
+end.

@@ -1,0 +1,253 @@
+object DMUsuarios: TDMUsuarios
+  Left = 0
+  Top = 0
+  Caption = 'DMUsuarios'
+  ClientHeight = 625
+  ClientWidth = 1112
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object FDQFuncionarios: TFDQuery
+    Active = True
+    Connection = DataModule1.FDConnection
+    SQL.Strings = (
+      'Select * from Funcionario')
+    Left = 40
+    Top = 8
+    object FDQFuncionariosfun_Id: TFDAutoIncField
+      FieldName = 'fun_Id'
+      Origin = 'fun_Id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object FDQFuncionariosfun_Nome: TStringField
+      FieldName = 'fun_Nome'
+      Origin = 'fun_Nome'
+      Required = True
+      Size = 100
+    end
+    object FDQFuncionariosfun_Celular: TStringField
+      FieldName = 'fun_Celular'
+      Origin = 'fun_Celular'
+      Required = True
+      EditMask = '(##)#####-####;1;_'
+      Size = 50
+    end
+    object FDQFuncionariosfun_CPF: TStringField
+      FieldName = 'fun_CPF'
+      Origin = 'fun_CPF'
+      Required = True
+      EditMask = '###.###.###-##;1;_'
+      Size = 50
+    end
+    object FDQFuncionariosfun_Endereco: TStringField
+      FieldName = 'fun_Endereco'
+      Origin = 'fun_Endereco'
+      Required = True
+      Size = 50
+    end
+    object FDQFuncionariosfun_Salario: TFMTBCDField
+      FieldName = 'fun_Salario'
+      Origin = 'fun_Salario'
+      Required = True
+      DisplayFormat = '#,###,##0.00'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+  end
+  object FDQProdutos: TFDQuery
+    Active = True
+    Connection = DataModule1.FDConnection
+    SQL.Strings = (
+      
+        'select prod.prod_id, prod.prod_Nome,prod.prod_qtdEstoque, prod.p' +
+        'rod_ValorUni, prod.prod_IdTipoProduto , tip.tip_nome from produt' +
+        'o as prod left join tipo as tip on tip.tip_id = prod.prod_IdTipo' +
+        'Produto;')
+    Left = 128
+    Top = 8
+    object FDQProdutosprod_id: TFDAutoIncField
+      FieldName = 'prod_id'
+      Origin = 'prod_Id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object FDQProdutosprod_Nome: TStringField
+      FieldName = 'prod_Nome'
+      Origin = 'prod_Nome'
+      Required = True
+      Size = 150
+    end
+    object FDQProdutosprod_qtdEstoque: TIntegerField
+      FieldName = 'prod_qtdEstoque'
+      Origin = 'prod_QtdEstoque'
+      Required = True
+    end
+    object FDQProdutosprod_ValorUni: TFMTBCDField
+      FieldName = 'prod_ValorUni'
+      Origin = 'prod_ValorUni'
+      Required = True
+      DisplayFormat = '#,###,##0.00'
+      Precision = 18
+      Size = 2
+    end
+    object FDQProdutosprod_IdTipoProduto: TIntegerField
+      FieldName = 'prod_IdTipoProduto'
+      Origin = 'prod_IdTipoProduto'
+      Required = True
+    end
+    object FDQProdutostip_nome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tip_nome'
+      Origin = 'tip_Nome'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+  end
+  object FDTransaction1: TFDTransaction
+    Connection = DataModule1.FDConnection
+    Left = 48
+    Top = 136
+  end
+  object DSDetalhe: TDataSource
+    DataSet = FDTDetalhe
+    Left = 328
+    Top = 64
+  end
+  object DSMestre: TDataSource
+    DataSet = FDTMestre
+    Left = 264
+    Top = 64
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    Left = 48
+    Top = 192
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 48
+    Top = 248
+  end
+  object FDTMestre: TFDTable
+    Active = True
+    IndexFieldNames = 'cliM_Id'
+    Connection = DataModule1.FDConnection
+    TableName = 'clientemestre'
+    Left = 264
+    Top = 8
+    object FDTMestrecliM_Id: TFDAutoIncField
+      FieldName = 'cliM_Id'
+      Origin = 'cliM_Id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object FDTMestrecliM_Nome: TStringField
+      FieldName = 'cliM_Nome'
+      Origin = 'cliM_Nome'
+      Required = True
+      Size = 100
+    end
+    object FDTMestrecliM_CPF: TStringField
+      FieldName = 'cliM_CPF'
+      Origin = 'cliM_CPF'
+      Required = True
+      EditMask = '###.###.###-##;1;_'
+      Size = 50
+    end
+    object FDTMestrecliM_DataNasc: TDateField
+      FieldName = 'cliM_DataNasc'
+      Origin = 'cliM_DataNasc'
+      Required = True
+      EditMask = '##/##/####;1;_'
+    end
+  end
+  object FDTDetalhe: TFDTable
+    Active = True
+    IndexFieldNames = 'cliD_IdMestre'
+    MasterSource = DSMestre
+    MasterFields = 'cliM_Id'
+    DetailFields = 'cliD_IdMestre'
+    Connection = DataModule1.FDConnection
+    TableName = 'projetohps.clientedetalhe'
+    Left = 328
+    Top = 8
+    object FDTDetalhecliD_id: TFDAutoIncField
+      FieldName = 'cliD_id'
+      Origin = 'cliD_id'
+      ReadOnly = True
+    end
+    object FDTDetalhecliD_IdMestre: TIntegerField
+      FieldName = 'cliD_IdMestre'
+      Origin = 'cliD_IdMestre'
+      Required = True
+    end
+    object FDTDetalhecliD_Nome: TStringField
+      FieldName = 'cliD_Nome'
+      Origin = 'cliD_Nome'
+      Required = True
+      Size = 100
+    end
+    object FDTDetalhecliD_Celular: TStringField
+      FieldName = 'cliD_Celular'
+      Origin = 'cliD_Celular'
+      Required = True
+      EditMask = '(##)#####-####;1;_'
+      Size = 50
+    end
+    object FDTDetalhecliD_Cidade: TStringField
+      FieldName = 'cliD_Cidade'
+      Origin = 'cliD_Cidade'
+      Required = True
+      Size = 50
+    end
+    object FDTDetalhecliD_Endereco: TStringField
+      FieldName = 'cliD_Endereco'
+      Origin = 'cliD_Endereco'
+      Required = True
+      Size = 100
+    end
+  end
+  object DSFuncionario: TDataSource
+    DataSet = FDQFuncionarios
+    Left = 41
+    Top = 58
+  end
+  object DSTipo: TDataSource
+    DataSet = FDQTipo
+    Left = 200
+    Top = 64
+  end
+  object FDQTipo: TFDQuery
+    Active = True
+    Connection = DataModule1.FDConnection
+    SQL.Strings = (
+      'select * from tipo')
+    Left = 200
+    Top = 8
+    object FDQTipotip_id: TFDAutoIncField
+      FieldName = 'tip_id'
+      Origin = 'tip_id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object FDQTipotip_Nome: TStringField
+      FieldName = 'tip_Nome'
+      Origin = 'tip_Nome'
+      Required = True
+      Size = 100
+    end
+  end
+  object DSProduto: TDataSource
+    DataSet = FDQProdutos
+    Left = 120
+    Top = 64
+  end
+end

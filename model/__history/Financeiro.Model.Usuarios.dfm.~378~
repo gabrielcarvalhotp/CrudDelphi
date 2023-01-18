@@ -1,0 +1,368 @@
+object DMConexao: TDMConexao
+  Left = 0
+  Top = 0
+  Caption = 'S'
+  ClientHeight = 625
+  ClientWidth = 1112
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object FDQProdutos: TFDQuery
+    Active = True
+    Connection = MMConexao.FDConnection
+    SQL.Strings = (
+      
+        'select prod.prod_id, prod.prod_Nome,prod.prod_qtdEstoque, prod.p' +
+        'rod_ValorUni, prod.prod_IdTipoProduto , tip.tip_nome from produt' +
+        'os as prod left join tipoproduto as tip on tip.tip_id = prod.pro' +
+        'd_IdTipoProduto;')
+    Left = 40
+    Top = 120
+    object FDQProdutosprod_id: TFDAutoIncField
+      FieldName = 'prod_id'
+      Origin = 'prod_Id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object FDQProdutosprod_Nome: TStringField
+      FieldName = 'prod_Nome'
+      Origin = 'prod_Nome'
+      Required = True
+      Size = 50
+    end
+    object FDQProdutosprod_qtdEstoque: TIntegerField
+      FieldName = 'prod_qtdEstoque'
+      Origin = 'prod_QtdEstoque'
+      Required = True
+    end
+    object FDQProdutosprod_ValorUni: TFMTBCDField
+      FieldName = 'prod_ValorUni'
+      Origin = 'prod_ValorUni'
+      Required = True
+      DisplayFormat = '#,###,##0.00'
+      Precision = 18
+      Size = 2
+    end
+    object FDQProdutosprod_IdTipoProduto: TIntegerField
+      FieldName = 'prod_IdTipoProduto'
+      Origin = 'prod_IdTipoProduto'
+      Required = True
+    end
+    object FDQProdutostip_nome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tip_nome'
+      Origin = 'tip_Nome'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+  end
+  object FDTransaction1: TFDTransaction
+    Left = 816
+    Top = 208
+  end
+  object DSClientes_Contatos: TDataSource
+    DataSet = FDTClientes_Contatos
+    Left = 152
+    Top = 232
+  end
+  object DSClientes: TDataSource
+    DataSet = FDTClientes
+    Left = 104
+    Top = 176
+  end
+  object FDTClientes: TFDTable
+    Active = True
+    IndexFieldNames = 'cliM_Id'
+    Connection = MMConexao.FDConnection
+    TableName = 'clientemestre'
+    Left = 40
+    Top = 176
+    object FDTClientescliM_Id: TFDAutoIncField
+      FieldName = 'cliM_Id'
+      Origin = 'cliM_Id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object FDTClientescliM_Nome: TStringField
+      FieldName = 'cliM_Nome'
+      Origin = 'cliM_Nome'
+      Required = True
+      Size = 100
+    end
+    object FDTClientescliM_CPF: TStringField
+      FieldName = 'cliM_CPF'
+      Origin = 'cliM_CPF'
+      Required = True
+      EditMask = '###.###.###-##;1;_'
+    end
+    object FDTClientescliM_DataNasc: TDateField
+      FieldName = 'cliM_DataNasc'
+      Origin = 'cliM_DataNasc'
+      Required = True
+      EditMask = '##/##/####;1;_'
+    end
+  end
+  object FDTClientes_Contatos: TFDTable
+    Active = True
+    IndexFieldNames = 'cliD_IdMestre'
+    MasterSource = DSClientes
+    MasterFields = 'cliM_Id'
+    DetailFields = 'cliD_IdMestre'
+    Connection = MMConexao.FDConnection
+    TableName = 'projetohps.clientedetalhe'
+    Left = 40
+    Top = 232
+    object FDTClientes_ContatoscliD_id: TFDAutoIncField
+      FieldName = 'cliD_id'
+      Origin = 'cliD_id'
+      ReadOnly = True
+    end
+    object FDTClientes_ContatoscliD_IdMestre: TIntegerField
+      FieldName = 'cliD_IdMestre'
+      Origin = 'cliD_IdMestre'
+      Required = True
+    end
+    object FDTClientes_ContatoscliD_Nome: TStringField
+      FieldName = 'cliD_Nome'
+      Origin = 'cliD_Nome'
+      Required = True
+      Size = 100
+    end
+    object FDTClientes_ContatoscliD_Celular: TStringField
+      FieldName = 'cliD_Celular'
+      Origin = 'cliD_Celular'
+      Required = True
+      EditMask = '(##)#####-####;1;_'
+    end
+    object FDTClientes_ContatoscliD_Cidade: TStringField
+      FieldName = 'cliD_Cidade'
+      Origin = 'cliD_Cidade'
+      Required = True
+      Size = 50
+    end
+    object FDTClientes_ContatoscliD_Endereco: TStringField
+      FieldName = 'cliD_Endereco'
+      Origin = 'cliD_Endereco'
+      Required = True
+      Size = 100
+    end
+  end
+  object DSFuncionario: TDataSource
+    DataSet = FDQFuncionarios
+    Left = 121
+    Top = 8
+  end
+  object DSTipoProduto: TDataSource
+    DataSet = FDQTipoProduto
+    Left = 120
+    Top = 64
+  end
+  object FDQTipoProduto: TFDQuery
+    Active = True
+    Connection = MMConexao.FDConnection
+    SQL.Strings = (
+      'select * from tipoproduto'
+      '')
+    Left = 40
+    Top = 64
+    object FDQTipoProdutoTIP_ID: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'TIP_ID'
+      Origin = 'TIP_ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQTipoProdutoTIP_NOME: TStringField
+      FieldName = 'TIP_NOME'
+      Origin = 'TIP_NOME'
+      Size = 50
+    end
+  end
+  object DSProduto: TDataSource
+    DataSet = FDQProdutos
+    Left = 104
+    Top = 120
+  end
+  object DSFormaPgto: TDataSource
+    DataSet = FDQFormaPgto
+    Left = 120
+    Top = 288
+  end
+  object FDQFormaPgto: TFDQuery
+    Active = True
+    Connection = MMConexao.FDConnection
+    SQL.Strings = (
+      'select * from formaSpagamento')
+    Left = 40
+    Top = 288
+    object FDQFormaPgtoPGTO_ID: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'PGTO_ID'
+      Origin = 'PGTO_ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQFormaPgtoPGTO_NOME: TStringField
+      FieldName = 'PGTO_NOME'
+      Origin = 'PGTO_NOME'
+      Size = 50
+    end
+  end
+  object DSVenda: TDataSource
+    DataSet = FDQVenda
+    Left = 304
+    Top = 8
+  end
+  object DSVenda_produtos: TDataSource
+    DataSet = FDQVenda_Produtos
+    Left = 352
+    Top = 64
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 816
+    Top = 264
+  end
+  object FDQContagem: TFDQuery
+    Active = True
+    Connection = MMConexao.FDConnection
+    SQL.Strings = (
+      'select max(ven2_nrItem) as "contagem", '
+      'sum(ven2_ValorVista) as "ValorVista",'
+      ' sum(ven2_valorPrazo) as "ValorPrazo"'
+      'from venda2')
+    Left = 248
+    Top = 120
+  end
+  object DSContagem: TDataSource
+    Left = 320
+    Top = 120
+  end
+  object FDQFuncionarios: TFDQuery
+    Active = True
+    Connection = MMConexao.FDConnection
+    SQL.Strings = (
+      'select * from funcionarios')
+    Left = 40
+    Top = 8
+  end
+  object FDQVenda: TFDTable
+    Active = True
+    BeforePost = FDQVendaBeforePost
+    IndexFieldNames = 'VEN1_ID'
+    Connection = MMConexao.FDConnection
+    TableName = 'VENDA1'
+    Left = 248
+    Top = 8
+    object FDQVendaVEN1_ID: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'VEN1_ID'
+      Origin = 'VEN1_ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQVendaVEN1_FUNCIONARIOID: TIntegerField
+      FieldName = 'VEN1_FUNCIONARIOID'
+      Origin = 'VEN1_FUNCIONARIOID'
+    end
+    object FDQVendaVEN1_CLIENTEID: TIntegerField
+      FieldName = 'VEN1_CLIENTEID'
+      Origin = 'VEN1_CLIENTEID'
+    end
+    object FDQVendaVEN1_FORMAPGTOID: TIntegerField
+      FieldName = 'VEN1_FORMAPGTOID'
+      Origin = 'VEN1_FORMAPGTOID'
+    end
+    object FDQVendaVEN1_DATA: TDateField
+      FieldName = 'VEN1_DATA'
+      Origin = 'VEN1_DATA'
+    end
+    object FDQVendaVEN1_OBSERVACOES: TStringField
+      FieldName = 'VEN1_OBSERVACOES'
+      Origin = 'VEN1_OBSERVACOES'
+      Size = 100
+    end
+  end
+  object FDQVenda_Produtos: TFDTable
+    Active = True
+    IndexFieldNames = 'VEN2_MESTREID'
+    MasterSource = DSVenda
+    MasterFields = 'VEN1_ID'
+    Connection = MMConexao.FDConnection
+    TableName = 'VENDA2'
+    Left = 248
+    Top = 64
+    object FDQVenda_ProdutosVEN2_ID: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'VEN2_ID'
+      Origin = 'VEN2_ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQVenda_ProdutosVEN2_MESTREID: TIntegerField
+      FieldName = 'VEN2_MESTREID'
+      Origin = 'VEN2_MESTREID'
+    end
+    object FDQVenda_ProdutosVEN2_NRITEM: TIntegerField
+      FieldName = 'VEN2_NRITEM'
+      Origin = 'VEN2_NRITEM'
+    end
+    object FDQVenda_ProdutosVEN2_PRODUTOID: TIntegerField
+      FieldName = 'VEN2_PRODUTOID'
+      Origin = 'VEN2_PRODUTOID'
+    end
+    object FDQVenda_ProdutosVEN2_QTDEPRODUTO: TIntegerField
+      FieldName = 'VEN2_QTDEPRODUTO'
+      Origin = 'VEN2_QTDEPRODUTO'
+    end
+    object FDQVenda_ProdutosVEN2_VALORPRAZO: TFMTBCDField
+      FieldName = 'VEN2_VALORPRAZO'
+      Origin = 'VEN2_VALORPRAZO'
+      Precision = 18
+      Size = 2
+    end
+    object FDQVenda_ProdutosVEN2_VALORVISTA: TFMTBCDField
+      FieldName = 'VEN2_VALORVISTA'
+      Origin = 'VEN2_VALORVISTA'
+      Precision = 18
+      Size = 2
+    end
+    object FDQVenda_ProdutosVEN2_NOMEPRODUTO: TStringField
+      FieldName = 'VEN2_NOMEPRODUTO'
+      Origin = 'VEN2_NOMEPRODUTO'
+      Size = 100
+    end
+  end
+  object FDQFuncionarios_pesquisa: TFDQuery
+    Active = True
+    Connection = MMConexao.FDConnection
+    SQL.Strings = (
+      'select * from funcionarios')
+    Left = 504
+    Top = 8
+  end
+  object DSFuncionarios_pesquisa: TDataSource
+    DataSet = FDQFuncionarios_pesquisa
+    Left = 636
+    Top = 8
+  end
+  object FDQClientes_pesquisa: TFDQuery
+    Active = True
+    Connection = MMConexao.FDConnection
+    SQL.Strings = (
+      'select * from clienteMestre'
+      ''
+      '')
+    Left = 496
+    Top = 56
+  end
+  object DSClientes_pesquisa: TDataSource
+    DataSet = FDQClientes_pesquisa
+    Left = 628
+    Top = 56
+  end
+end

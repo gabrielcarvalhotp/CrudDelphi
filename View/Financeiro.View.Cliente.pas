@@ -1,0 +1,100 @@
+unit Financeiro.View.Cliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Financeiro.View.CadastroPadrao, Data.DB, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Buttons, Vcl.ExtCtrls, Vcl.WinXPanels, Financeiro.Model.Usuarios, Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TFrmCadClientes = class(TFrmCadPadrao)
+    DBGrid1: TDBGrid;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    Label3: TLabel;
+    DBEdit3: TDBEdit;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
+    procedure BitBtnAlterarPesquisaClick(Sender: TObject);
+    procedure BitBtnSalvarCadastroClick(Sender: TObject);
+    procedure BitBtnIncluirPesquisaClick(Sender: TObject);
+    procedure DBEdit3Exit(Sender: TObject);
+    procedure BitBtnExcluirPesquisaClick(Sender: TObject);
+    procedure EditPesquisarChange(Sender: TObject);
+    procedure DBGrid1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure BitBtnFecharCadastroClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCadClientes: TFrmCadClientes;
+
+implementation
+
+uses
+  Financeiro.Model.ComandosSQL;
+
+{$R *.dfm}
+
+procedure TFrmCadClientes.BitBtnAlterarPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDTClientes.Edit;
+end;
+
+procedure TFrmCadClientes.BitBtnExcluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja deletar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes
+  then
+    DMConexao.FDTClientes.Delete;
+end;
+
+procedure TFrmCadClientes.BitBtnFecharCadastroClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDTClientes.cancel;
+end;
+
+procedure TFrmCadClientes.BitBtnIncluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDTClientes.Insert;
+end;
+
+procedure TFrmCadClientes.BitBtnSalvarCadastroClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja salvar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    BitBtnFecharCadastroClick(self);
+  end;
+end;
+
+procedure TFrmCadClientes.DBEdit3Exit(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDTClientes.Post;
+end;
+
+procedure TFrmCadClientes.DBGrid1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+   if key = VK_INSERT then DMConexao.FDTClientes_Contatos.Insert;
+   if key = VK_DELETE then DMConexao.FDTClientes_Contatos.Delete;
+   if Key = VK_RETURN then DMConexao.FDTClientes_Contatos.Post;
+end;
+
+procedure TFrmCadClientes.EditPesquisarChange(Sender: TObject);
+begin
+  inherited;
+  DMConexao.FDTClientes.Locate('cliM_Nome', EditPesquisar.Text);
+end;
+
+end.

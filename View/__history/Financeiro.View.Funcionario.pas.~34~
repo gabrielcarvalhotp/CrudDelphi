@@ -1,0 +1,122 @@
+unit Financeiro.View.Funcionario;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Financeiro.View.CadastroPadrao, Data.DB,
+  Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.WinXPanels, Financeiro.Controller.Interfaces, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.WinXCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Datasnap.Provider, Datasnap.DBClient, Vcl.Dialogs, System.UITypes;
+
+type
+  TFrmCadFuncionario = class(TFrmCadPadrao)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    edEndereco: TDBEdit;
+    edCPF: TDBEdit;
+    edCelular: TDBEdit;
+    edNome: TDBEdit;
+    edSalario: TDBEdit;
+    Label5: TLabel;
+    procedure BitBtnSalvarCadastroClick(Sender: TObject);
+    procedure ValidarDados;
+    procedure EditPesquisarChange(Sender: TObject);
+    procedure BitBtnIncluirPesquisaClick(Sender: TObject);
+    procedure BitBtnFecharCadastroClick(Sender: TObject);
+    procedure BitBtnAlterarPesquisaClick(Sender: TObject);
+    procedure BitBtnExcluirPesquisaClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure DBGridPesquisaDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+      State: TGridDrawState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    ComandosSQL: iComandosSQL;
+  end;
+
+var
+  FrmCadFuncionario: TFrmCadFuncionario;
+
+implementation
+
+uses
+  Financeiro.Model.Usuarios, Financeiro.Model.Validacao,
+  Financeiro.Model.ComandosSQL;
+
+{$R *.dfm}
+
+procedure TFrmCadFuncionario.BitBtnAlterarPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMUsuarios.FDQFuncionarios.Edit;
+end;
+
+procedure TFrmCadFuncionario.BitBtnExcluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja deletar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes
+  then
+    DMUsuarios.FDQFuncionarios.Delete;
+end;
+
+procedure TFrmCadFuncionario.BitBtnFecharCadastroClick(Sender: TObject);
+begin
+  inherited;
+  DMUsuarios.FDQFuncionarios.Cancel;
+end;
+
+procedure TFrmCadFuncionario.BitBtnIncluirPesquisaClick(Sender: TObject);
+begin
+  inherited;
+  DMUsuarios.FDQFuncionarios.Insert;
+end;
+
+
+procedure TFrmCadFuncionario.BitBtnSalvarCadastroClick(Sender: TObject);
+begin
+  inherited;
+  if MessageDlg('Deseja salvar?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    DMUsuarios.FDQFuncionarios.Post;
+    BitBtnFecharCadastroClick(self)
+  end;
+
+end;
+
+procedure TFrmCadFuncionario.DBGridPesquisaDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer;
+  Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  DBGridPesquisa.Columns[0].Alignment := taCenter; 
+end;
+
+procedure TFrmCadFuncionario.EditPesquisarChange(Sender: TObject);
+var TextoSQL : string;
+begin
+  inherited;
+  TextoSQL := 'Select * from Funcionario where fun_Nome like "' + EditPesquisar.Text + '%" order by fun_id'; 
+  ComandosSQL.Comandos(DMUsuarios.FDQFuncionarios, TextoSQL);
+end;
+
+procedure TFrmCadFuncionario.FormCreate(Sender: TObject);
+begin
+  inherited;
+  ComandosSQL := TComandoSQL.New;
+end;
+
+
+procedure TFrmCadFuncionario.ValidarDados;
+begin
+  TValidacao.New.ValidarParametros(edNome.Text, edCPF.Text);
+end;
+
+end.

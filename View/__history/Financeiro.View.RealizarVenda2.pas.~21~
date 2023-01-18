@@ -1,0 +1,94 @@
+unit Financeiro.View.RealizarVenda2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.DBCtrls, Vcl.Mask,
+  Vcl.ExtCtrls, Vcl.Buttons, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Financeiro.Controller.Interfaces, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
+
+type
+  TFrmRealizarVenda2 = class(TForm)
+    Label1: TLabel;
+    edId: TDBEdit;
+    Panel2: TPanel;
+    Label6: TLabel;
+    Label3: TLabel;
+    edNomeProduto: TEdit;
+    BitBtnLKPFuncionario: TBitBtn;
+    edIdProduto: TEdit;
+    DBGrid1: TDBGrid;
+    edQuantidade: TEdit;
+    Label2: TLabel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    DataSource1: TDataSource;
+    FDQuery1: TFDQuery;
+    procedure BitBtnLKPFuncionarioClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure edIdProdutoChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    comandosSQl: iComandosSQL;
+  end;
+
+var
+  FrmRealizarVenda2: TFrmRealizarVenda2;
+
+implementation
+
+uses
+  Financeiro.View.LookUpPadrao, Financeiro.Model.ComandosSQL, 
+  Financeiro.Model.Usuarios;
+
+{$R *.dfm}
+
+procedure TFrmRealizarVenda2.BitBtnLKPFuncionarioClick(Sender: TObject);
+begin
+  FrmPesquisa.Caption := 'Pesquisar Funcionarios';
+  comandosSQl.Comandos(FrmPesquisa.FDQLookUp,
+    ' select prod_id as "Código", prod_Nome as "Nome" from produto');
+  FrmPesquisa.ShowModal;
+  edIdProduto.Text := FrmPesquisa.id;
+  edNomeProduto.Text := FrmPesquisa.Nome;
+end;
+
+procedure TFrmRealizarVenda2.edIdProdutoChange(Sender: TObject);
+begin
+  comandosSQl.Comandos(FDQuery1, ' select * from produto where id = ' + edIdProduto.Text) 
+end;
+
+procedure TFrmRealizarVenda2.FormCreate(Sender: TObject);
+begin
+  FrmPesquisa := TFrmPesquisa.Create(self);
+  comandosSQl := TComandoSQL.New;
+end;
+
+procedure TFrmRealizarVenda2.SpeedButton1Click(Sender: TObject);
+var 
+contagem : integer;
+begin
+  if DMUsuarios.FDQContagem.FieldByName('contagem').Value = null then contagem := 0
+  else contagem := DMUsuarios.FDQContagem.FieldByName('contagem').Value;
+  DMUsuarios.FDQVenda2.Insert; 
+  DBGrid1.Columns[2].Field.text := (contagem + 1).ToString;
+  DBGrid1.Columns[3].Field.text := edIdProduto.Text;
+  DBGrid1.Columns[4].Field.text := edNomeProduto.Text;
+  DBGrid1.Columns[5].Field.text := edQuantidade.Text;
+  
+end;
+
+procedure TFrmRealizarVenda2.SpeedButton2Click(Sender: TObject);
+begin
+  DMUsuarios.FDQVenda2.Cancel;
+end;
+
+end.

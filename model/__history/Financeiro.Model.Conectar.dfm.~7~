@@ -1,0 +1,24 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 150
+  Width = 215
+  object FDConnectionUsuarios: TFDConnection
+    Params.Strings = (
+      'Database=financeiro'
+      'User_Name=root'
+      'DriverID=MySQL')
+    Connected = True
+    LoginPrompt = False
+    Left = 16
+    Top = 16
+  end
+  object FDQuery1: TFDQuery
+    Active = True
+    Connection = FDConnectionUsuarios
+    SQL.Strings = (
+      'select * from usuarios')
+    Left = 88
+    Top = 16
+  end
+end

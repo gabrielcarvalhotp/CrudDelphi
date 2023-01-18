@@ -1,0 +1,39 @@
+object FrmAcaoVenda: TFrmAcaoVenda
+  Left = 0
+  Top = 0
+  ClientHeight = 146
+  ClientWidth = 449
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Button1: TButton
+    Left = 48
+    Top = 48
+    Width = 100
+    Height = 50
+    Caption = 'Realizar Venda'
+    TabOrder = 0
+  end
+  object Button2: TButton
+    Left = 176
+    Top = 48
+    Width = 100
+    Height = 50
+    Caption = 'Lista de Vendas'
+    TabOrder = 1
+  end
+  object Button3: TButton
+    Left = 304
+    Top = 48
+    Width = 100
+    Height = 50
+    Caption = 'Sair'
+    TabOrder = 2
+  end
+end

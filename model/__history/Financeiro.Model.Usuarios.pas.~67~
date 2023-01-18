@@ -1,0 +1,68 @@
+unit Financeiro.Model.Usuarios;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.FMTBcd, Datasnap.DBClient,
+  Datasnap.Provider, Data.DB, Data.SqlExpr, DataModuleConexao,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
+  FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef,
+  FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, FireDAC.Comp.UI;
+
+type
+  TDMFuncionarios = class(TForm)
+    FDQFuncionarios: TFDQuery;
+    FDQFuncionariosfun_Id: TFDAutoIncField;
+    FDQFuncionariosfun_Nome: TStringField;
+    FDQFuncionariosfun_Celular: TStringField;
+    FDQFuncionariosfun_CPF: TStringField;
+    FDQFuncionariosfun_Endereco: TStringField;
+    FDQFuncionariosfun_Salario: TFMTBCDField;
+    FDQProdutos: TFDQuery;
+    FDQProdutosprod_Id: TFDAutoIncField;
+    FDQProdutosprod_Nome: TStringField;
+    FDQProdutosprod_QtdEstoque: TIntegerField;
+    FDQProdutosprod_ValorUni: TFMTBCDField;
+    FDQProdutosprod_IdFuncionario: TIntegerField;
+    FDQProdutosfun_nome: TStringField;
+    FDTransaction1: TFDTransaction;
+    DSDetalhe: TDataSource;
+    DSMestre: TDataSource;
+    FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDTMestre: TFDTable;
+    FDTDetalhe: TFDTable;
+    FDTMestrecliM_Id: TFDAutoIncField;
+    FDTMestrecliM_Nome: TStringField;
+    FDTMestrecliM_CPF: TStringField;
+    FDTMestrecliM_DataNasc: TDateField;
+    FDTDetalhecliD_id: TFDAutoIncField;
+    FDTDetalhecliD_IdMestre: TIntegerField;
+    FDTDetalhecliD_NomeMae: TStringField;
+    FDTDetalhecliD_NomePai: TStringField;
+    FDTDetalhecliD_EstadoCivil: TStringField;
+    FDTDetalhecliD_NomeConj: TStringField;
+    DSFuncionario: TDataSource;
+    DSTipo: TDataSource;
+    FDQTipo: TFDQuery;
+    FDQTipotip_id: TFDAutoIncField;
+    FDQTipotip_Nome: TStringField;
+    DSProduto: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DMFuncionarios: TDMFuncionarios;
+
+implementation
+
+{$R *.dfm}
+
+end.

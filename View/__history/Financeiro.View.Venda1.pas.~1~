@@ -1,0 +1,99 @@
+unit Financeiro.View.RealizarVenda;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, DataModuleConexao,
+  Vcl.Buttons, Financeiro.Controller.Interfaces, Financeiro.Model.Usuarios,
+  Vcl.ExtCtrls;
+
+type
+  TFrmRalizarVenda = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    edId: TDBEdit;
+    Label3: TLabel;
+    Label4: TLabel;
+    edIdCliente: TDBEdit;
+    edNomeFuncionario: TEdit;
+    BitBtnLKPFuncionario: TBitBtn;
+    edIdFuncionario: TDBEdit;
+    Panel2: TPanel;
+    Label6: TLabel;
+    edNomeCliente: TEdit;
+    BitBtnLKPCliente: TBitBtn;
+    LKPformasdepagamento: TDBLookupComboBox;
+    PanelFooter: TPanel;
+    BitBtnFecharPesquisa: TBitBtn;
+    BitBtnIncluirPesquisa: TBitBtn;
+    DBMemo1: TDBMemo;
+    Label5: TLabel;
+    procedure BitBtnLKPFuncionarioClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure BitBtnLKPClienteClick(Sender: TObject);
+    procedure BitBtnFecharPesquisaClick(Sender: TObject);
+    procedure BitBtnIncluirPesquisaClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    comandosSQl: iComandosSQL;
+  end;
+
+var
+  FrmRalizarVenda: TFrmRalizarVenda;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  Financeiro.View.LookUpPadrao, Financeiro.Model.comandosSQl;
+
+procedure TFrmRalizarVenda.BitBtnFecharPesquisaClick(Sender: TObject);
+begin
+  DMUsuarios.FDQVenda1.Cancel;
+  self.Close;
+end;
+
+procedure TFrmRalizarVenda.BitBtnIncluirPesquisaClick(Sender: TObject);
+begin
+  DMUsuarios.FDQVenda1.FieldByName('ven1_DataHora').AsDateTime := now;
+  DMUsuarios.FDQVenda1.post;
+  self.Close;
+end;
+
+procedure TFrmRalizarVenda.BitBtnLKPClienteClick(Sender: TObject);
+begin
+  FrmPesquisa.Caption := 'Pesquisar Clientes';
+  comandosSQl.Comandos(FrmPesquisa.FDQLookUp,
+    ' select cliM_id as "Código", cliM_nome as "Nome" from clienteMestre ');
+  FrmPesquisa.ShowModal;
+  edIdCliente.Text := FrmPesquisa.id;
+  edNomeCliente.Text := FrmPesquisa.Nome;
+end;
+
+procedure TFrmRalizarVenda.BitBtnLKPFuncionarioClick(Sender: TObject);
+begin
+  FrmPesquisa.Caption := 'Pesquisar Funcionarios';
+  comandosSQl.Comandos(FrmPesquisa.FDQLookUp,
+    ' select fun_id as "Código", fun_nome as "Nome" from funcionario ');
+  FrmPesquisa.ShowModal;
+  edIdFuncionario.Text := FrmPesquisa.id;
+  edNomeFuncionario.Text := FrmPesquisa.Nome;
+end;
+
+procedure TFrmRalizarVenda.FormCreate(Sender: TObject);
+begin
+  DMUsuarios.FDQVenda1.Insert;
+  FrmPesquisa := TFrmPesquisa.Create(self);
+  comandosSQl := TComandoSQL.New;
+end;
+
+end.

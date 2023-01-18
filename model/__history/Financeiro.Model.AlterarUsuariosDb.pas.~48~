@@ -1,0 +1,94 @@
+unit Financeiro.Model.AlterarUsuariosDb;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, vcl.Dialogs;
+
+type
+  TAlterarCadastro = class(TInterfacedObject, iAlterarCadastroUsuarios)
+    constructor Create;
+    Destructor Destroy; override;
+    class Function New: iAlterarCadastroUsuarios;
+
+  public
+    function ValidarParametros(SenhaEdit, SenhaDb, Nome, Login, SenhaNova: string)
+      : iAlterarCadastroUsuarios;
+    function ValidarSenhaAtual(SenhaEdit, SenhaDb: string)
+      : iAlterarCadastroUsuarios;
+    function ValidarNome(Nome: string): iAlterarCadastroUsuarios;
+    function ValidarLogin(Login: string): iAlterarCadastroUsuarios;
+    function ValidarSenhaNova(SenhaNova : string) : iAlterarCadastroUsuarios;
+
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TAlterarCadastro }
+
+constructor TAlterarCadastro.Create;
+begin
+  //
+end;
+
+destructor TAlterarCadastro.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TAlterarCadastro.New: iAlterarCadastroUsuarios;
+begin
+  result := Self.Create;
+end;
+
+function TAlterarCadastro.ValidarParametros(SenhaEdit, SenhaDb, Nome,
+  Login, SenhaNova: string): iAlterarCadastroUsuarios;
+begin
+  ValidarSenhaAtual(SenhaEdit, SenhaDb);
+  ValidarNome(Nome);
+  ValidarLogin(Login);
+  ValidarSenhaNova(SenhaNova);
+end;
+
+function TAlterarCadastro.ValidarLogin(Login: string): iAlterarCadastroUsuarios;
+begin
+  if Trim(Login) = '' then
+  begin
+    ShowMessage('O campo de login não pode ser vazio!');
+    Abort
+  end;
+end;
+
+function TAlterarCadastro.ValidarNome(Nome: string): iAlterarCadastroUsuarios;
+begin
+  if Trim(Nome) = '' then
+  begin
+    ShowMessage('O Campo Nome não pode ser vazio!');
+    Abort;
+  end;
+end;
+
+function TAlterarCadastro.ValidarSenhaAtual(SenhaEdit, SenhaDb: string)
+  : iAlterarCadastroUsuarios;
+begin
+  if SenhaEdit <> SenhaDb then
+  begin
+    ShowMessage('Senha Invalida!');
+    Abort
+  end;
+end;
+
+function TAlterarCadastro.ValidarSenhaNova(SenhaNova: string): iAlterarCadastroUsuarios;
+begin
+  if Trim(Senha) = '' then
+  begin
+    ShowMessage('Senha Nova Invalida!');
+    Abort
+  end;
+end;
+
+end.

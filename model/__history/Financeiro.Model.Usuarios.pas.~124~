@@ -1,0 +1,96 @@
+unit Financeiro.Model.Usuarios;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.FMTBcd, Datasnap.DBClient,
+  Datasnap.Provider, Data.DB, Data.SqlExpr, MainModuleConexao,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
+  FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef,
+  FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, FireDAC.Comp.UI, FireDAC.Phys.FBDef,
+  FireDAC.Phys.IBBase, FireDAC.Phys.FB, FireDAC.Phys.SQLiteVDataSet;
+
+type
+  TDMConexao = class(TForm)
+    FDQFuncionarios: TFDQuery;
+    FDQFuncionariosfun_Id: TFDAutoIncField;
+    FDQFuncionariosfun_Nome: TStringField;
+    FDQFuncionariosfun_Celular: TStringField;
+    FDQFuncionariosfun_CPF: TStringField;
+    FDQFuncionariosfun_Endereco: TStringField;
+    FDQFuncionariosfun_Salario: TFMTBCDField;
+    FDQProdutos: TFDQuery;
+    FDTransaction1: TFDTransaction;
+    DSClientes_Contatos: TDataSource;
+    DSClientes: TDataSource;
+    FDTClientes: TFDTable;
+    FDTClientes_Contatos: TFDTable;
+    FDTClientescliM_Id: TFDAutoIncField;
+    FDTClientescliM_Nome: TStringField;
+    FDTClientescliM_CPF: TStringField;
+    FDTClientescliM_DataNasc: TDateField;
+    DSFuncionario: TDataSource;
+    DSTipoProduto: TDataSource;
+    FDQTipoProduto: TFDQuery;
+    DSProduto: TDataSource;
+    FDQProdutosprod_id: TFDAutoIncField;
+    FDQProdutosprod_Nome: TStringField;
+    FDQProdutosprod_qtdEstoque: TIntegerField;
+    FDQProdutosprod_ValorUni: TFMTBCDField;
+    FDQProdutosprod_IdTipoProduto: TIntegerField;
+    FDQProdutostip_nome: TStringField;
+    FDTClientes_ContatoscliD_id: TFDAutoIncField;
+    FDTClientes_ContatoscliD_IdMestre: TIntegerField;
+    FDTClientes_ContatoscliD_Nome: TStringField;
+    FDTClientes_ContatoscliD_Celular: TStringField;
+    FDTClientes_ContatoscliD_Cidade: TStringField;
+    FDTClientes_ContatoscliD_Endereco: TStringField;
+    DSFormaPgto: TDataSource;
+    FDQFormaPgto: TFDQuery;
+    DSVenda: TDataSource;
+    DSVenda_produtos: TDataSource;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDQTipoProdutoTIP_ID: TIntegerField;
+    FDQTipoProdutoTIP_NOME: TStringField;
+    FDQVenda: TFDQuery;
+    FDQVenda_Produtos: TFDQuery;
+    FDQVenda_ProdutosVEN2_ID: TIntegerField;
+    FDQVenda_ProdutosVEN2_MESTREID: TIntegerField;
+    FDQVenda_ProdutosVEN2_NRITEM: TIntegerField;
+    FDQVenda_ProdutosVEN2_PRODUTOID: TIntegerField;
+    FDQVenda_ProdutosVEN2_QTDEPRODUTO: TIntegerField;
+    FDQVenda_ProdutosVEN2_VALORPRAZO: TFMTBCDField;
+    FDQVenda_ProdutosVEN2_VALORVISTA: TFMTBCDField;
+    FDQVenda_ProdutosVEN2_NOMEPRODUTO: TStringField;
+    FDQFormaPgtoPGTO_ID: TIntegerField;
+    FDQFormaPgtoPGTO_NOME: TStringField;
+    FDQVendaVEN1_ID: TIntegerField;
+    FDQVendaVEN1_FUNCIONARIOID: TIntegerField;
+    FDQVendaFUN_NOME: TStringField;
+    FDQVendaVEN1_CLIENTEID: TIntegerField;
+    FDQVendaCLIM_NOME: TStringField;
+    FDQVendaVEN1_FORMAPGTOID: TIntegerField;
+    FDQVendaPGTO_NOME: TStringField;
+    FDQVendaVEN1_DATA: TDateField;
+    FDQVendaVEN1_OBSERVACOES: TStringField;
+    FDQContagem: TFDQuery;
+    DataSource1: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DMConexao: TDMConexao;
+
+implementation
+
+{$R *.dfm}
+
+
+end.

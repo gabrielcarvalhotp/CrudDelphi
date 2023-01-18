@@ -1,0 +1,97 @@
+unit Financeiro.Model.Conexao;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.DataSet, Financeiro.Controller.Interfaces;
+
+type
+
+  TConexaoMySql = class(TInterfacedObject, iConexao)
+    constructor Create;
+    destructor destroy; override;
+    class function New: iConexao;
+    procedure CarregarConfiguracoes;
+    procedure Conectar;
+    procedure Desconectar;
+  private
+    ParametroNome: string;
+    ParametroValor: String;
+    ListaParametros: TStringList;
+
+  const
+    ARQUIVOFINANCEIRO = 'SistemaFinanceiro.cfg';
+  end;
+
+  TDataModule1 = class(TDataModule)
+    FDConnectionMySql: TFDConnection;
+    FDQuery1: TFDQuery;
+    DataSource1: TDataSource;
+  private
+    { Private declarations }
+
+  public
+    { Public declarations }
+    procedure ChamarConexao;
+  end;
+
+var
+  DataModule1: TDataModule1;
+
+implementation
+
+{ TConexaoMySql }
+
+constructor TConexaoMySql.Create;
+begin
+  ListaParametros := TStringList.Create;
+end;
+
+destructor TConexaoMySql.destroy;
+begin
+
+  inherited;
+end;
+
+class function TConexaoMySql.New: iConexao;
+begin
+  result := self.Create;
+end;
+
+procedure TConexaoMySql.CarregarConfiguracoes;
+var
+contador : integer;
+begin
+  DataModule1.FDConnectionMySql.Params.Clear;
+  if not FileExists(ARQUIVOFINANCEIRO) then
+    raise Exception.Create('Arquivo de Configuração não encontrado!');
+  ListaParametros.LoadFromFile(ARQUIVOFINANCEIRO);
+  for Contador := 0 to Pred(ListaParametros.Count) do
+  begin
+    if ListaParametros[Contador].IndexOf('=') > 0 then
+    begin
+      ParametroNome := ListaParametros[Contador].Split(['='])[0].Trim;
+      ParametroValor := ListaParametros[Contador].Split(['='])[1].Trim;
+      DataModule1.FDConnectionMySql.Params.Add(ParametroNome + '=' +
+        ParametroValor);
+    end;
+  end;
+
+end;
+
+procedure TConexaoMySql.Conectar;
+begin
+  DataModule1.FDConnectionMySql.Connected;
+end;
+
+procedure TConexaoMySql.Desconectar;
+begin
+  DataModule1.FDConnectionMySql.Connected := false;
+end;
+
+end.

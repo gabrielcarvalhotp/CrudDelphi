@@ -1,0 +1,98 @@
+unit Financeiro.Model.ConexaoMySql;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, System.Generics.Collections, System.Classes,
+  FireDAC.Comp.Client, Vcl.Dialogs;
+
+type
+
+  TConexaoMySql = class(TInterfacedObject, iConexao)
+
+  private
+    FConnection: TFDConnection;
+    ParametroNome: string;
+    ParametroValor: String;
+    ListaParametros: TStringList;
+    procedure CarregarConfiguracoes;
+    procedure ArquivoExiste;
+    
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New: iConexao;
+    function Conexao(aConexao: TFDConnection): iConexao;
+    procedure Conectar;
+    procedure Desconectar;
+
+  const
+    ARQUIVOFINANCEIRO = 'SistemaFinanceiroSql.txt';
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TConexaoMySql }
+
+constructor TConexaoMySql.Create;
+begin;
+  ListaParametros := TStringList.Create;
+end;
+
+destructor TConexaoMySql.Destroy;
+begin
+  ListaParametros.Free;
+  inherited;
+end;
+
+class function TConexaoMySql.New: iConexao;
+begin
+  result := self.Create;
+end;
+
+function TConexaoMySql.Conexao(aConexao: TFDConnection): iConexao;
+begin
+  FConnection := aConexao;
+  result := self;
+end;
+
+procedure TConexaoMySql.Conectar;
+begin
+  ArquivoExiste;
+  FConnection.Connected := true;
+end;
+
+procedure TConexaoMySql.ArquivoExiste;
+begin
+  if not FileExists(ARQUIVOFINANCEIRO) then
+    raise Exception.Create('Arquivo de Configuração não encontrado!')
+  else
+    ListaParametros.LoadFromFile(ARQUIVOFINANCEIRO);
+    CarregarConfiguracoes;
+end;
+
+procedure TConexaoMySql.CarregarConfiguracoes;
+var
+  contador: integer;
+begin
+  FConnection.Params.Clear;
+  for contador := 0 to Pred(ListaParametros.Count) do
+  begin
+    if ListaParametros[contador].IndexOf('=') > 0 then
+    begin
+      ParametroNome := ListaParametros[contador].Split(['='])[0].Trim;
+      ParametroValor := ListaParametros[contador].Split(['='])[1].Trim;
+      FConnection.Params.Add(ParametroNome + '=' + ParametroValor);
+    end;
+  end;
+end;
+
+procedure TConexaoMySql.Desconectar;
+begin
+  FConnection.Connected := false;
+end;
+
+end.

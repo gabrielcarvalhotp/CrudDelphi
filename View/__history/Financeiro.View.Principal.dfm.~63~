@@ -1,0 +1,169 @@
+object FrmPrincipal: TFrmPrincipal
+  Left = 0
+  Top = 0
+  Align = alClient
+  BorderStyle = bsSingle
+  Caption = 'Financeiro'
+  ClientHeight = 802
+  ClientWidth = 1122
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenuPrincipal
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 19
+  object Panel2: TPanel
+    Left = 856
+    Top = 0
+    Width = 266
+    Height = 802
+    Align = alRight
+    BevelOuter = bvNone
+    Caption = 'Panel2'
+    TabOrder = 0
+    object Panel1: TPanel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 260
+      Height = 119
+      Align = alTop
+      BorderStyle = bsSingle
+      TabOrder = 0
+      ExplicitLeft = 1
+      ExplicitTop = 10
+      ExplicitWidth = 265
+      object lblTimeOfDay: TLabel
+        Left = 3
+        Top = 1
+        Width = 83
+        Height = 19
+        Caption = 'Hora do dia'
+      end
+      object lblTempNow: TLabel
+        Left = 3
+        Top = 25
+        Width = 108
+        Height = 16
+        Caption = 'Temperatura Atual'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblTempMax: TLabel
+        Left = 3
+        Top = 47
+        Width = 44
+        Height = 16
+        Caption = 'M'#225'xima'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblTempMin: TLabel
+        Left = 3
+        Top = 69
+        Width = 41
+        Height = 16
+        Caption = 'Minima'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblTempDesc: TLabel
+        Left = 3
+        Top = 91
+        Width = 55
+        Height = 16
+        Caption = 'Descri'#231#227'o'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+    end
+  end
+  object MainMenuPrincipal: TMainMenu
+    Left = 688
+    Top = 32
+    object MenuCadastros: TMenuItem
+      Caption = 'Cadastros'
+      object Funcionarios1: TMenuItem
+        Caption = 'Funcionarios'
+        OnClick = Funcionarios1Click
+      end
+      object TipoProduto1: TMenuItem
+        Caption = 'Tipo de produto'
+        OnClick = TipoProduto1Click
+      end
+      object Produtos1: TMenuItem
+        Caption = 'Produtos'
+        OnClick = Produtos1Click
+      end
+      object Clientes1: TMenuItem
+        Caption = 'Clientes'
+        OnClick = Clientes1Click
+      end
+      object FormasDePagamento1: TMenuItem
+        Caption = 'Formas de Pagamento'
+        OnClick = FormasDePagamento1Click
+      end
+    end
+    object Movimentos1: TMenuItem
+      Caption = 'Movimentos'
+      object Vendas1: TMenuItem
+        Caption = 'Vendas'
+        OnClick = Vendas1Click
+      end
+      object ConsultarPreos1: TMenuItem
+        Caption = 'Consultar Pre'#231'os'
+        OnClick = ConsultarPreos1Click
+      end
+    end
+    object MenuAjuda: TMenuItem
+      Caption = 'Configura'#231#245'es'
+      object Sair1: TMenuItem
+        Caption = 'Sair'
+        OnClick = Sair1Click
+      end
+    end
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 1056
+    Top = 128
+  end
+  object RESTClient1: TRESTClient
+    Params = <>
+    Left = 848
+    Top = 312
+  end
+  object RESTRequest1: TRESTRequest
+    Client = RESTClient1
+    Params = <>
+    Response = RESTResponse1
+    Left = 944
+    Top = 320
+  end
+  object RESTResponse1: TRESTResponse
+    Left = 1024
+    Top = 280
+  end
+end

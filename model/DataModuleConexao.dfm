@@ -1,0 +1,38 @@
+object DMConexao: TDMConexao
+  Left = 0
+  Top = 0
+  ClientHeight = 251
+  ClientWidth = 351
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'Database=C:\Financeiro\DB\FINANCEIRO.FDB'
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Server=127.0.0.1'
+      'Port=3050'
+      'DriverID=FB')
+    LoginPrompt = False
+    Left = 40
+    Top = 16
+  end
+  object FDPhysFBDriverLink1: TFDPhysFBDriverLink
+    VendorLib = 'C:\Program Files\Firebird\Firebird_3_0\WOW64\fbclient.dll'
+    Embedded = True
+    Left = 40
+    Top = 88
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 40
+    Top = 152
+  end
+end

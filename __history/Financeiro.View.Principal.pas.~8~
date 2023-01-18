@@ -1,0 +1,38 @@
+unit Financeiro.View.Principal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, 
+  Financeiro.View.CadastroPadrao, Financeiro.Controller.Interfaces, 
+  Financeiro.View.Splash;
+
+type
+  TFormPrincipal = class(TForm)
+    MainMenu1: TMainMenu;
+    mnuCadastros: TMenuItem;
+    mnuRelatrios: TMenuItem;
+    mnuAjuda: TMenuItem;
+    mnuCadastroPadrao: TMenuItem;
+    procedure mnuCadastroPadraoClick(Sender: TObject);
+  private
+    { Private declarations }
+    Splash : TFormSplash;
+  public
+    { Public declarations }
+  end;
+
+var
+  FormPrincipal: TFormPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormPrincipal.mnuCadastroPadraoClick(Sender: TObject);
+begin
+    FormCadastroPadrao.Show;
+end;
+
+end.

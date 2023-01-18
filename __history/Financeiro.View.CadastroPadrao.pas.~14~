@@ -1,0 +1,55 @@
+unit Financeiro.View.CadastroPadrao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.WinXPanels, Data.DB,
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, 
+  Financeiro.Controller.Interfaces, Financeiro.Model.Interfaces;
+
+type
+  TFormCadastroPadrao = class(TForm)
+    CardPanelPrincipal: TCardPanel;
+    CardCadastro: TCard;
+    CardPesquisa: TCard;
+    PanelPesquisa: TPanel;
+    PanelGrid: TPanel;
+    PanelFooter: TPanel;
+    DBGridPesquisa: TDBGrid;
+    EditPesquisar: TEdit;
+    BitBtnPesquisar: TBitBtn;
+    BitBtnFecharPesquisa: TBitBtn;
+    BitBtnIncluirPesquisa: TBitBtn;
+    BitBtnExcluirPesquisa: TBitBtn;
+    BitBtnImprimirPesquisa: TBitBtn;
+    Panel1: TPanel;
+    BitBtnFecharCadastro: TBitBtn;
+    BitBtnSalvarCadastro: TBitBtn;
+    LabelPesquisar: TLabel;
+    BitBtnAlterarPesquisa: TBitBtn;
+    procedure BitBtnIncluirPesquisaClick(Sender: TObject);
+  private
+     FBotaoIncluir : iBotaoIncluir;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCadastroPadrao: TFormCadastroPadrao;
+
+implementation
+
+uses
+  Financeiro.Model.BotaoIncluir;
+
+{$R *.dfm}
+
+procedure TFormCadastroPadrao.BitBtnIncluirPesquisaClick(Sender: TObject);
+begin
+   FBotaoincluir := TBotaoIncluir.New;
+   FBotaoIncluir.ChamarCard(CardCadastro)
+end;
+
+end.

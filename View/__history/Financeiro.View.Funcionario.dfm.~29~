@@ -1,0 +1,207 @@
+inherited FrmCadFuncionario: TFrmCadFuncionario
+  Caption = 'Cadastro de funcionarios'
+  ClientHeight = 671
+  ClientWidth = 1094
+  ExplicitWidth = 1100
+  ExplicitHeight = 700
+  PixelsPerInch = 96
+  TextHeight = 19
+  inherited CardPanelPrincipal: TCardPanel
+    Width = 1094
+    Height = 671
+    ActiveCard = CardCadastro
+    ExplicitWidth = 1094
+    ExplicitHeight = 671
+    inherited CardCadastro: TCard
+      Width = 1092
+      Height = 669
+      ExplicitWidth = 1092
+      ExplicitHeight = 669
+      object Label1: TLabel [0]
+        Left = 8
+        Top = 71
+        Width = 42
+        Height = 19
+        Caption = 'Nome'
+      end
+      object Label2: TLabel [1]
+        Left = 8
+        Top = 104
+        Width = 49
+        Height = 19
+        Caption = 'Celular'
+      end
+      object Label3: TLabel [2]
+        Left = 8
+        Top = 137
+        Width = 27
+        Height = 19
+        Caption = 'CPF'
+      end
+      object Label4: TLabel [3]
+        Left = 8
+        Top = 187
+        Width = 65
+        Height = 19
+        Caption = 'Endere'#231'o'
+      end
+      object Label5: TLabel [4]
+        Left = 8
+        Top = 216
+        Width = 48
+        Height = 19
+        Caption = 'Salario'
+      end
+      inherited Panel1: TPanel
+        Top = 563
+        Width = 1092
+        ExplicitTop = 563
+        ExplicitWidth = 1092
+        inherited BitBtnFecharCadastro: TBitBtn
+          Left = 888
+          TabOrder = 1
+          ExplicitLeft = 888
+        end
+        inherited BitBtnSalvarCadastro: TBitBtn
+          Left = 991
+          TabOrder = 0
+          OnClick = BitBtnSalvarCadastroClick
+          ExplicitLeft = 991
+        end
+      end
+      object edEndereco: TDBEdit [6]
+        Left = 84
+        Top = 184
+        Width = 160
+        Height = 27
+        DataField = 'fun_Endereco'
+        DataSource = DMFuncionarios.DSFuncionario
+        TabOrder = 4
+      end
+      object edCPF: TDBEdit [7]
+        Left = 84
+        Top = 134
+        Width = 160
+        Height = 27
+        DataField = 'fun_CPF'
+        DataSource = DMFuncionarios.DSFuncionario
+        MaxLength = 14
+        TabOrder = 3
+      end
+      object edCelular: TDBEdit [8]
+        Left = 84
+        Top = 101
+        Width = 158
+        Height = 27
+        DataField = 'fun_Celular'
+        DataSource = DMFuncionarios.DSFuncionario
+        MaxLength = 14
+        TabOrder = 2
+      end
+      object edNome: TDBEdit [9]
+        Left = 84
+        Top = 68
+        Width = 160
+        Height = 27
+        DataField = 'fun_Nome'
+        DataSource = DMFuncionarios.DSFuncionario
+        TabOrder = 1
+      end
+      object edSalario: TDBEdit [10]
+        Left = 84
+        Top = 213
+        Width = 160
+        Height = 27
+        DataField = 'fun_Salario'
+        DataSource = DMFuncionarios.DSFuncionario
+        TabOrder = 5
+      end
+      inherited Panel2: TPanel
+        Width = 1092
+        Height = 57
+        TabOrder = 6
+        ExplicitWidth = 1092
+        ExplicitHeight = 57
+        inherited Label6: TLabel
+          Left = 8
+          Top = 18
+          Width = 205
+          Caption = 'Cadastrar Funcion'#225'rio'
+          ExplicitLeft = 8
+          ExplicitTop = 18
+          ExplicitWidth = 205
+        end
+      end
+    end
+    inherited CardPesquisa: TCard
+      Width = 1092
+      Height = 669
+      ExplicitWidth = 1092
+      ExplicitHeight = 669
+      inherited PanelFooter: TPanel
+        Top = 563
+        Width = 1092
+        ExplicitTop = 563
+        ExplicitWidth = 1092
+        inherited BitBtnFecharPesquisa: TBitBtn
+          Left = 991
+          ExplicitLeft = 991
+        end
+        inherited BitBtnExcluirPesquisa: TBitBtn
+          OnClick = BitBtnExcluirPesquisaClick
+        end
+      end
+      inherited PanelGrid: TPanel
+        Width = 1092
+        Height = 458
+        ExplicitWidth = 1092
+        ExplicitHeight = 458
+        inherited DBGridPesquisa: TDBGrid
+          Left = 4
+          Top = 2
+          Width = 1089
+          Height = 421
+          Align = alNone
+          DataSource = DMFuncionarios.DSFuncionario
+          ParentBiDiMode = False
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'fun_Id'
+              Title.Alignment = taCenter
+              Title.Caption = 'C'#243'digo'
+              Width = 68
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'fun_Nome'
+              Title.Caption = 'Nome do funcionario'
+              Width = 609
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'fun_Celular'
+              Title.Caption = 'Celular'
+              Width = 200
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'fun_Salario'
+              Title.Caption = 'Sal'#225'rio'
+              Visible = True
+            end>
+        end
+      end
+      inherited PanelPesquisa: TPanel
+        Width = 1092
+        ExplicitWidth = 1092
+        inherited EditPesquisar: TEdit
+          OnChange = EditPesquisarChange
+        end
+      end
+    end
+  end
+end

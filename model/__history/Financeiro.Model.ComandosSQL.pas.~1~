@@ -1,0 +1,25 @@
+unit Financeiro.Model.ComandosSQL;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, FireDAC.Comp.Client;
+
+type
+  TComandoSQL = class(TInterfacedObject, iComandosSQL)
+    procedure Comandos(fdquery: TFDQuery; SQL: string);
+  end;
+
+implementation
+
+{ TComandoSQL }
+
+procedure TComandoSQL.Comandos(fdquery: TFDQuery; SQL: string);
+begin
+  fdquery.Close;
+  fdquery.sql.Clear;
+  fdquery.SQL.add(SQL);
+  fdquery.Open;
+end;
+
+end.

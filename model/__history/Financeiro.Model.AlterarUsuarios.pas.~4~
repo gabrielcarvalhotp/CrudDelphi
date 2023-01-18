@@ -1,0 +1,47 @@
+unit Financeiro.Model.AlterarUsuarios;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces;
+
+type
+  TAlterarCadastro = class(TInterfacedObject, iAlterarCadastroUsuarios)
+    constructor Create;
+    Destructor Destroy; override;
+    class Function New :  iAlterarCadastroUsuarios;
+    function ValidarSenha: iAlterarCadastroUsuarios;
+    function ValidarNome: iAlterarCadastroUsuarios;
+  end;
+
+implementation
+
+{ TAlterarCadastro }
+
+constructor TAlterarCadastro.Create;
+begin
+
+end;
+
+destructor TAlterarCadastro.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TAlterarCadastro.New: iAlterarCadastroUsuarios;
+begin
+   result := Self.Create;
+end;
+
+function TAlterarCadastro.ValidarNome: iAlterarCadastroUsuarios;
+begin
+
+end;
+
+function TAlterarCadastro.ValidarSenha: iAlterarCadastroUsuarios;
+begin
+
+end;
+
+end.

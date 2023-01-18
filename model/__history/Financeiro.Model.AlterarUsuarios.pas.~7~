@@ -1,0 +1,52 @@
+unit Financeiro.Model.AlterarUsuarios;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, Vcl.Dialogs; 
+
+type
+  TAlterarCadastro = class(TInterfacedObject, iAlterarCadastroUsuarios)
+    constructor Create;
+    Destructor Destroy; override;
+    class Function New :  iAlterarCadastroUsuarios;
+     function ValidarSenha(value : string) : iAlterarCadastroUsuarios;
+    function ValidarNome: iAlterarCadastroUsuarios;
+  end;
+
+implementation
+
+uses
+  Financeiro.Model.Usuarios;
+
+{ TAlterarCadastro }
+
+constructor TAlterarCadastro.Create;
+begin
+
+end;
+
+destructor TAlterarCadastro.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TAlterarCadastro.New: iAlterarCadastroUsuarios;
+begin
+   result := Self.Create;
+end;
+
+function TAlterarCadastro.ValidarNome: iAlterarCadastroUsuarios;
+begin
+
+end;
+
+function TAlterarCadastro.ValidarSenha(value : string) : iAlterarCadastroUsuarios;
+begin
+ if value <> DataModuleUsuarios.ClientDataSetUsuariossenha.asString then
+  showmessage(DataModuleUsuarios.ClientDataSetUsuariossenha.asString);
+  showmessage('Senha Incoreta!')
+end;
+
+end.

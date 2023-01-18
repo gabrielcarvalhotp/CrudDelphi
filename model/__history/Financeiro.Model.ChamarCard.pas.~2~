@@ -1,0 +1,45 @@
+unit Financeiro.Model.ChamarCard;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, Vcl.WinXPanels;
+
+type
+  TBotaoIncluir = class(TInterfacedObject, iBotaoChamar)
+    constructor Create;
+    destructor Destroy; override;
+    class function New: iBotaoChamar;
+     procedure ChamarCard(Card : TCardPanel ; Value: TCard);
+  end;
+
+implementation
+
+uses
+  Financeiro.View.CadastroPadrao, Financeiro.Model.Usuarios;
+
+{ TBotaoIncluir }
+
+procedure TBotaoIncluir.ChamarCard(Card : TCardPanel ; Value: TCard);
+begin
+  Card.ActiveCard := Value
+end;
+
+constructor TBotaoIncluir.Create;
+begin
+
+end;
+
+destructor TBotaoIncluir.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TBotaoIncluir.New: iBotaoChamar;
+begin
+  Result := Self.Create;
+end;
+
+
+end.

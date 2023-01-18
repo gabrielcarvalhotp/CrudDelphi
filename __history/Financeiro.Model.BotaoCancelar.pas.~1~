@@ -1,0 +1,7 @@
+unit Financeiro.Model.BotaoCancelar;
+
+interface
+
+implementation
+
+end.

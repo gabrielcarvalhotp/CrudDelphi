@@ -1,0 +1,27 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  Height = 290
+  Width = 367
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'Database=C:\Financeiro\DB\FINANCEIRO.FDB'
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Server=127.0.0.1'
+      'Port=3050'
+      'DriverID=FB')
+    LoginPrompt = False
+    Left = 32
+    Top = 8
+  end
+  object FDPhysFBDriverLink1: TFDPhysFBDriverLink
+    VendorLib = 'C:\Financeiro\DB\fbclient.dll'
+    Left = 32
+    Top = 72
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 40
+    Top = 136
+  end
+end

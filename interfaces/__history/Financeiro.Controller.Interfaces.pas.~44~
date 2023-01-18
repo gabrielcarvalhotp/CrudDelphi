@@ -1,0 +1,33 @@
+unit Financeiro.Controller.Interfaces;
+
+interface
+
+uses
+  Vcl.WinXPanels, Vcl.Forms, FireDAC.Comp.Client;
+
+type
+
+  iChamaCard = interface
+    ['{7670AD23-6D1D-4053-BD77-323CCC054AA7}']
+    procedure Executar(Card: TCardPanel; Value: TCard);
+  end;
+
+  iConexao = interface
+    ['{5E58A1F7-68C3-4604-816C-F26AF7A3B1D8}']
+    function Conexao(aConexao: TFDConnection): iConexao;
+    procedure Conectar;
+    procedure Desconectar;
+  end;
+
+  iAlterarCadastroUsuarios = interface
+    ['{96F0FECD-54A0-4874-A9C2-729B7AE75DD3}']
+    function ValidarParametros(SenhaEdit,SenhaDb, Nome, Login: string): iAlterarCadastroUsuarios;
+    function ValidarSenhaAtual(SenhaEdit,SenhaDb:string) : iAlterarCadastroUsuarios;
+    function ValidarNome(Nome : string): iAlterarCadastroUsuarios;
+    function ValidarLogin(Login : string): iAlterarCadastroUsuarios;
+    function ValidarSenhaNova(SenhaNova : string) : iAlterarCadastroUsuarios;
+  end;
+
+implementation
+
+end.

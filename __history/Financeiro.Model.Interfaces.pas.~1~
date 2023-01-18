@@ -1,0 +1,24 @@
+unit Financeiro.Model.Interfaces;
+
+interface
+
+uses
+  Financeiro.View.CadastroPadrao, Financeiro.Controller.Interfaces;
+type
+TBotaoIncluir = class(TInterfacedObject, iBotaoIncluir)
+  procedure ChamarCard;
+end;
+
+implementation
+
+{ TBotaoIncluir }
+
+
+{ TBotaoIncluir }
+
+procedure TBotaoIncluir.ChamarCard;
+begin
+   FormCadastroPadrao.CardPanelPrincipal.ActiveCard := FormCadastroPadrao.CardCadastro
+end;
+
+end.

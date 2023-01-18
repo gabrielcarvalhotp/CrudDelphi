@@ -1,0 +1,68 @@
+unit Financeiro.Model.Validacao;
+
+interface
+
+uses
+  Financeiro.Controller.Interfaces, vcl.Dialogs;
+
+type
+  TValidacao = class(TInterfacedObject, iValidacao)
+    constructor Create;
+    Destructor Destroy; override;
+    class Function New: iValidacao;
+
+  public
+    function ValidarParametros(Nome, CPF: string): iValidacao;
+    function ValidarNome(Nome: string): iValidacao;
+    function ValidarCPF(CPF : string) : iValidacao;
+
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TAlterarCadastro }
+
+constructor TValidacao.Create;
+begin
+  //
+end;
+
+destructor TValidacao.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TValidacao.New: iValidacao;
+begin
+  result := Self.Create;
+end;
+
+
+function TValidacao.ValidarCPF(CPF: string): iValidacao;
+begin
+  if CPF = '' then ShowMessage('CPF Invalido');
+  abort;
+  
+end;
+
+function TValidacao.ValidarNome(Nome: string): iValidacao;
+begin
+  if Trim(Nome) = '' then
+  begin
+    ShowMessage('O Campo Nome não pode ser vazio!');
+    Abort;
+  end;
+end;
+
+
+
+function TValidacao.ValidarParametros(Nome, CPF: string): iValidacao;
+begin
+  //
+end;
+
+end.
